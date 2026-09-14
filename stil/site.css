@@ -21,6 +21,7 @@
   --wp--preset--color--surface: #EFE7D7;     /* Sable: abgesetzter Abschnitt */
   --wp--preset--color--pierre: #E6E4DB;      /* Pierre: tiefste helle Fläche, kühl */
   --wp--preset--color--contrast: #1B2130;    /* Text, Fußbereich */
+  --wp--preset--color--titre: #333B52;       /* Überschriften: dieselbe Tinte, aufgehellt */
   --wp--preset--color--muted: #5A6070;       /* Nebentext */
   --wp--preset--color--line: #D9D0BF;        /* Trennlinien */
   --wp--preset--color--accent: #24386E;      /* Blau des Wappens */
@@ -125,7 +126,13 @@ a { color: inherit; }
 p { margin: 0 0 1em; }
 figure { margin: 0; }
 
+/* Überschriften stehen eine Stufe heller als der Fließtext. In dieser
+   Größe wirkt die volle Texttinte auf dem Papier wie Schwarz auf Weiß —
+   hart und aus dem Ton gefallen. Große Schrift braucht weniger Kontrast,
+   um gelesen zu werden: 9:1 statt 14:1, immer noch weit über AAA für
+   große Schrift (4,5:1). Der Fließtext behält die volle Tinte. */
 h1, h2, h3, h4 {
+  color: var(--wp--preset--color--titre);
   font-family: var(--serif);
   font-weight: var(--head-weight);
   line-height: var(--head-lh);
@@ -917,6 +924,7 @@ figcaption {
     --wp--preset--color--surface: #fff;
     --wp--preset--color--pierre: #fff;
     --wp--preset--color--contrast: #000;
+    --wp--preset--color--titre: #000;
     --wp--preset--color--muted: #333;
     --wp--preset--color--line: #999;
     --wp--preset--color--accent: #000;
