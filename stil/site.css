@@ -28,7 +28,7 @@
   --wp--preset--color--accent-dark: #1A2A55;
   --wp--preset--color--gold: #A8873F;        /* Gold des Wappens, sparsam */
   --wp--preset--color--gold-clair: #C9AE76;  /* dasselbe Gold, aufgehellt: nur für Haarlinien */
-  --onde: rgba(36, 56, 110, 0.05);           /* Wappenblau, fast unsichtbar: die Resonanzringe */
+  --onde: rgba(168, 135, 63, 0.10);          /* Gold, fast unsichtbar: die Resonanzringe */
   --wp--preset--color--feld: #FFFDF9;        /* Formularfelder */
 
   --wp--preset--font-size--small: 1.0625rem;
@@ -449,15 +449,21 @@ figcaption {
    nächstliegende Bild dafür und zugleich das zurückhaltendste — Geometrie,
    kein Symbol, keine Illustration.
 
-   Drei Regeln halten es dezent: eine einzige Farbe bei 5 % Deckung, eine
-   Maske, die die Ringe zum Rand hin auflöst, und kein einziges Pixel
-   Bilddatei. Wer die Deckung erhöht, macht daraus Dekor. */
+   Drei Regeln halten es dezent: eine einzige Farbe bei sehr geringer
+   Deckung, eine Maske, die die Ringe zum Rand hin auflöst, und kein
+   einziges Pixel Bilddatei. Wer die Deckung erhöht, macht daraus Dekor.
+
+   Die Ringe sind golden, nicht blau. Blau auf der hellen Fläche wurde
+   grau und sah aus wie ein technischer Plan; Gold gehört zur Haarlinie
+   darunter und zum Wappen. Sie sitzen enger und kleiner als früher und
+   sind auf das Wort zentriert, nicht auf den Abschnitt — sonst schnitt
+   der obere Rand des Bandes einen Ring sichtbar an. */
 .etymologie {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   background: var(--wp--preset--color--pierre);
-  padding-block: var(--wp--preset--spacing--70);
+  padding-block: clamp(5rem, 3.5rem + 5vw, 9rem);
   text-align: center;
 }
 .etymologie::before {
@@ -465,27 +471,42 @@ figcaption {
   position: absolute;
   z-index: -1;
   left: 50%;
-  top: 50%;
-  width: min(150vw, 1180px);
+  top: 47%;
+  width: min(105vw, 960px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   background: repeating-radial-gradient(circle at center,
-    transparent 0 43px, var(--onde) 43px 44px);
-  -webkit-mask-image: radial-gradient(circle at center, #000 8%, rgba(0,0,0,0.35) 42%, transparent 70%);
-          mask-image: radial-gradient(circle at center, #000 8%, rgba(0,0,0,0.35) 42%, transparent 70%);
+    transparent 0 48px, var(--onde) 48px 49px);
+  -webkit-mask-image: radial-gradient(circle at center, #000 5%, rgba(0,0,0,0.28) 34%, transparent 62%);
+          mask-image: radial-gradient(circle at center, #000 5%, rgba(0,0,0,0.28) 34%, transparent 62%);
   pointer-events: none;
 }
-.etymologie__inner { display: grid; justify-items: center; gap: var(--wp--preset--spacing--40); }
+.etymologie__inner { display: grid; justify-items: center; gap: var(--wp--preset--spacing--50); }
+/* Die Beschriftung steht weiter oben und weiter auseinander als sonst:
+   sie kündigt an, sie erklärt nicht. */
+.etymologie .label { letter-spacing: 0.22em; }
 .grec {
   font-family: var(--serif);
   font-weight: var(--head-weight);
-  font-size: clamp(3.5rem, 2rem + 6vw, 7.5rem);
+  font-size: clamp(4rem, 2rem + 7vw, 8.5rem);
   line-height: 1;
-  letter-spacing: 0.01em;
+  /* Griechische Minuskeln stehen von Haus aus enger als lateinische
+     Versalien. Eine Spur mehr Weite lässt das Wort atmen, ohne es
+     auseinanderzuziehen. */
+  letter-spacing: 0.02em;
   color: var(--wp--preset--color--accent);
   margin: 0;
 }
-.etymologie__texte { font-size: calc(var(--body-size) * 1.1); max-width: 34em; margin: 0; }
+/* Die Übersetzung tritt zurück: das Wort trägt den Abschnitt, die
+   Herleitung erläutert es nur. Deshalb Nebentextfarbe statt voller
+   Tinte — und eine Zeile, die nicht länger ist als das Wort breit. */
+.etymologie__texte {
+  font-size: calc(var(--body-size) * 1.02);
+  color: var(--wp--preset--color--muted);
+  max-width: 30em;
+  margin: 0;
+}
+.etymologie .filet { width: 4.5rem; }
 
 /* ---------- Prinzipien ---------- */
 
