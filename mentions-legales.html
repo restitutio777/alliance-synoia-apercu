@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
+<title>Mentions légales · Alliance Synoïa</title>
+<meta name="description" content="Mentions légales du site de l’Alliance Synoïa.">
+<link rel="icon" href="medien/wappen/blason-provisoire-160.png" type="image/png">
+<link rel="preload" href="schriften/eb-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/ysabeau-office-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="stil/schriften.css">
+<link rel="stylesheet" href="stil/site.css">
+</head>
+<body class="page-legale">
+
+<a class="saut" href="#contenu">Aller au contenu</a>
+
+<header class="site-header wrap">
+  <a class="marque" href="index.html">
+    <img src="medien/wappen/blason-provisoire-160.png" width="108" height="160" alt="Blason de l’Alliance Synoïa">
+    <span class="marque__nom">Alliance Synoïa</span>
+  </a>
+  <button class="nav-bascule" type="button" aria-expanded="false" aria-controls="nav-principale">
+    <span class="nav-bascule__texte">Menu</span>
+    <span class="nav-bascule__barres" aria-hidden="true"></span>
+  </button>
+  <nav class="nav" id="nav-principale" aria-label="Navigation principale">
+    <ul>
+      <li><a href="concept.html">Concept Synoïa</a></li>
+      <li><a href="alliance.html">Alliance Synoïa</a></li>
+      <li><a href="collaborations.html">Collaborations</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="adhesion.html">Adhésion</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <a class="bouton bouton--contour site-header__cta" href="adhesion.html">Adhérer</a>
+</header>
+
+
+<main id="contenu">
+<section class="page-tete wrap">
+    <p class="label">Informations légales</p>
+    <h1>Mentions légales</h1>
+  </section>
+
+  <section class="section--serre wrap">
+
+    <div class="avis">
+      <p class="label">Page à compléter</p>
+      <p>Cette page est un gabarit. Les passages entre crochets doivent être remplis par l’association : elle seule dispose de ces informations. Ce texte n’est pas un avis juridique&#8239;; une relecture par un juriste est recommandée avant la mise en ligne, en Suisse comme en France.</p>
+    </div>
+
+    <div class="lecture article">
+
+      <h2>Éditeur du site</h2>
+      <p>
+        Alliance Synoïa, association de droit suisse<br>
+        Siège : [adresse complète à Genève]<br>
+        Représentée par : [nom et fonction]<br>
+        E-mail : [adresse e-mail]<br>
+        Numéro d’inscription au registre : [IDE / numéro, s’il existe]
+      </p>
+      <p>
+        Alliance Synoïa France, association de droit français<br>
+        Siège : [adresse complète]<br>
+        Numéro RNA : [W…]<br>
+        E-mail : [adresse e-mail]
+      </p>
+
+      <h2>Directeur de la publication</h2>
+      <p>[nom]</p>
+
+      <h2>Hébergement</h2>
+      <p>
+        Infomaniak Network SA<br>
+        Rue Eugène-Marziano 25, 1227 Les Acacias (Genève), Suisse<br>
+        www.infomaniak.com
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>Les textes, le blason et les photographies publiés sur ce site sont la propriété de l’Alliance Synoïa ou de leurs auteurs respectifs. Toute reproduction, même partielle, est soumise à autorisation préalable.</p>
+      <p>Crédits photographiques : [à compléter — auteur des photographies].</p>
+      <p>Typographies : EB Garamond et Ysabeau Office, sous licence SIL Open Font License 1.1.</p>
+
+      <h2>Responsabilité</h2>
+      <p>L’association s’efforce de tenir les informations de ce site à jour et exactes. Elle ne peut toutefois garantir l’exactitude, l’exhaustivité ou l’actualité de l’ensemble des contenus, ni être tenue pour responsable de l’usage qui en serait fait.</p>
+
+      <h2>Liens</h2>
+      <p>Ce site peut renvoyer vers des sites tiers dont l’association ne contrôle pas le contenu et dont elle décline la responsabilité.</p>
+
+      <h2>Données personnelles</h2>
+      <p>Le traitement des données transmises par les formulaires est décrit dans la <a href="confidentialite.html">politique de confidentialité</a>.</p>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div class="marque">
+      <img src="medien/wappen/blason-provisoire-160.png" width="108" height="160" alt="">
+      <span class="marque__nom">Alliance Synoïa</span>
+    </div>
+    <p class="site-footer__assoc">
+      Alliance Synoïa, association dont le siège est à Genève<br>
+      Alliance Synoïa France, pour le premier lieu dans les Alpes françaises
+    </p>
+    <nav aria-label="Liens du pied de page">
+      <a href="contact.html">Contact</a>
+      <a href="adhesion.html">Adhérer</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="confidentialite.html">Confidentialité</a>
+    </nav>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  var kopf = document.querySelector('.site-header');
+  var knopf = kopf && kopf.querySelector('.nav-bascule');
+  if (!knopf) return;
+  knopf.addEventListener('click', function () {
+    var offen = kopf.classList.toggle('est-ouverte');
+    knopf.setAttribute('aria-expanded', String(offen));
+  });
+})();
+</script>
+
+</body>
+</html>

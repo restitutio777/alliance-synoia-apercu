@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
+<title>Contact · Alliance Synoïa</title>
+<meta name="description" content="Écrire à l’Alliance Synoïa, association franco-suisse dont le siège est à Genève.">
+<link rel="icon" href="medien/wappen/blason-provisoire-160.png" type="image/png">
+<link rel="preload" href="schriften/eb-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/ysabeau-office-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="stil/schriften.css">
+<link rel="stylesheet" href="stil/site.css">
+</head>
+<body class="page-contact">
+
+<a class="saut" href="#contenu">Aller au contenu</a>
+
+<header class="site-header wrap">
+  <a class="marque" href="index.html">
+    <img src="medien/wappen/blason-provisoire-160.png" width="108" height="160" alt="Blason de l’Alliance Synoïa">
+    <span class="marque__nom">Alliance Synoïa</span>
+  </a>
+  <button class="nav-bascule" type="button" aria-expanded="false" aria-controls="nav-principale">
+    <span class="nav-bascule__texte">Menu</span>
+    <span class="nav-bascule__barres" aria-hidden="true"></span>
+  </button>
+  <nav class="nav" id="nav-principale" aria-label="Navigation principale">
+    <ul>
+      <li><a href="concept.html">Concept Synoïa</a></li>
+      <li><a href="alliance.html">Alliance Synoïa</a></li>
+      <li><a href="collaborations.html">Collaborations</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="adhesion.html">Adhésion</a></li>
+      <li><a href="contact.html" aria-current="page">Contact</a></li>
+    </ul>
+  </nav>
+  <a class="bouton bouton--contour site-header__cta" href="adhesion.html">Adhérer</a>
+</header>
+
+
+<main id="contenu">
+<section class="page-tete wrap">
+    <p class="label">Contact</p>
+    <h1>Nous écrire</h1>
+    <p class="chapeau">Une question sur le concept, le lieu, une collaboration possible&#8239;? Écrivez-nous, nous lisons tout.</p>
+  </section>
+
+  <section class="section--serre wrap">
+    <div class="adhesion">
+      <div class="adhesion__texte">
+        <h2>Les associations</h2>
+        <ul class="faits">
+          <li><span class="faits__cle">Alliance Synoïa</span><span>association dont le siège est à Genève, en attente d’un agrément d’utilité publique</span></li>
+          <li><span class="faits__cle">Alliance Synoïa France</span><span>pour le premier lieu de l’Alliance, dans les Alpes françaises</span></li>
+          <li><span class="faits__cle">Adhérer</span><span><a href="adhesion.html">17 € ou CHF par an, offerte en 2026</a></span></li>
+        </ul>
+
+        <div class="avis">
+          <p class="label">À compléter</p>
+          <p>Adresse postale, adresse e-mail et, le cas échéant, téléphone manquent encore. Ils doivent aussi figurer dans les <a href="mentions-legales.html">mentions légales</a>.</p>
+        </div>
+      </div>
+
+      <form class="formulaire" action="#" method="post">
+        <p class="label">Votre message</p>
+        <div class="champs-2">
+          <label>Prénom <input type="text" name="prenom" autocomplete="given-name" required></label>
+          <label>Nom <input type="text" name="nom" autocomplete="family-name" required></label>
+        </div>
+        <label>E-mail <input type="email" name="email" autocomplete="email" required></label>
+        <label>Sujet <input type="text" name="sujet"></label>
+        <label>Message <textarea name="message" rows="6" required></textarea></label>
+        <label class="case"><input type="checkbox" name="consentement" required> <span>J’accepte que mes données soient utilisées pour répondre à mon message.</span></label>
+        <button class="bouton" type="submit">Envoyer</button>
+        <p class="formulaire__note">Vos données servent uniquement à répondre à ce message. Voir la <a href="confidentialite.html">politique de confidentialité</a>.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div class="marque">
+      <img src="medien/wappen/blason-provisoire-160.png" width="108" height="160" alt="">
+      <span class="marque__nom">Alliance Synoïa</span>
+    </div>
+    <p class="site-footer__assoc">
+      Alliance Synoïa, association dont le siège est à Genève<br>
+      Alliance Synoïa France, pour le premier lieu dans les Alpes françaises
+    </p>
+    <nav aria-label="Liens du pied de page">
+      <a href="contact.html">Contact</a>
+      <a href="adhesion.html">Adhérer</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="confidentialite.html">Confidentialité</a>
+    </nav>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  var kopf = document.querySelector('.site-header');
+  var knopf = kopf && kopf.querySelector('.nav-bascule');
+  if (!knopf) return;
+  knopf.addEventListener('click', function () {
+    var offen = kopf.classList.toggle('est-ouverte');
+    knopf.setAttribute('aria-expanded', String(offen));
+  });
+})();
+</script>
+
+</body>
+</html>
