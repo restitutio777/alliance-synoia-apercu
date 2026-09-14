@@ -714,31 +714,33 @@ figcaption {
 
 /* ---------- Hinweis, provisorisch ---------- */
 
-/* Arbeitsnotizen für Frédéric. Sie sollen auffallen und als vorläufig
-   erkennbar sein, deshalb bewusst außerhalb der Farbwelt der Seite: gelb
-   wie ein Notizzettel, gestrichelter Rand. Volle Breite, gut lesbare
-   Größe; ab 1000 px in zwei Spalten, damit die Zeile nicht zu lang wird.
-   Alle Notizen werden vor dem Livegang entfernt (ANLEITUNG.md). */
+/* Arbeitsnotizen für Frédéric. Sie sollen sich absetzen und als vorläufig
+   erkennbar sein, ohne die Seite zu verderben: kühles Hellgrau, eine
+   senkrechte Linie in Ocker. Jede Notiz nennt nur, was er prüfen, liefern
+   oder entscheiden muss. Volle Breite; mehrere Punkte stehen ab 1000 px
+   nebeneinander. Alle Notizen werden vor dem Livegang entfernt. */
 .avis {
-  --notiz-grund: #FBEFB5;
+  --notiz-grund: #ECEBE8;
   --notiz-kante: #C99A00;
-  --notiz-text: #2B2410;
   background: var(--notiz-grund);
-  color: var(--notiz-text);
-  border: 2px dashed var(--notiz-kante);
-  border-left: 8px solid var(--notiz-kante);
+  color: var(--wp--preset--color--contrast);
+  border-left: 4px solid var(--notiz-kante);
   padding: var(--wp--preset--spacing--50);
   font-family: var(--sans);
   font-size: calc(var(--body-size) * 0.86);
   line-height: 1.6;
   max-width: none;
 }
+.avis p { max-width: 52rem; }
 .avis p:last-child { margin-bottom: 0; }
-.avis .label { margin-bottom: 0.75rem; color: #5E4700; font-weight: 600; column-span: all; }
+.avis .label { margin-bottom: 0.75rem; color: #7A5A00; font-weight: 600; }
 .avis a { color: inherit; }
 @media (min-width: 62.5rem) {
-  .avis { column-width: 24rem; column-gap: var(--wp--preset--spacing--60); }
-  .avis p { break-inside: avoid; }
+  .avis { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); column-gap: var(--wp--preset--spacing--60); }
+  .avis .label { grid-column: 1 / -1; }
+  /* Nur ein Punkt: über die ganze Breite statt in der linken Hälfte. */
+  .avis > p:nth-child(2):last-child { grid-column: 1 / -1; }
+  .avis p { margin-bottom: 0; }
 }
 
 /* ---------- Fuß ---------- */
