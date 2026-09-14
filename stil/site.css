@@ -28,7 +28,7 @@
   --wp--preset--color--accent-dark: #1A2A55;
   --wp--preset--color--gold: #A8873F;        /* Gold des Wappens, sparsam */
   --wp--preset--color--gold-clair: #C9AE76;  /* dasselbe Gold, aufgehellt: nur für Haarlinien */
-  --onde: rgba(168, 135, 63, 0.10);          /* Gold, fast unsichtbar: die Resonanzringe */
+  --onde: rgba(168, 135, 63, 0.17);          /* Gold, fast unsichtbar: die Resonanzringe */
   --wp--preset--color--feld: #FFFDF9;        /* Formularfelder */
 
   --wp--preset--font-size--small: 1.0625rem;
@@ -476,9 +476,9 @@ figcaption {
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   background: repeating-radial-gradient(circle at center,
-    transparent 0 48px, var(--onde) 48px 49px);
-  -webkit-mask-image: radial-gradient(circle at center, #000 5%, rgba(0,0,0,0.28) 34%, transparent 62%);
-          mask-image: radial-gradient(circle at center, #000 5%, rgba(0,0,0,0.28) 34%, transparent 62%);
+    transparent 0 44px, var(--onde) 44px 45.5px);
+  -webkit-mask-image: radial-gradient(circle at center, #000 6%, rgba(0,0,0,0.45) 38%, transparent 68%);
+          mask-image: radial-gradient(circle at center, #000 6%, rgba(0,0,0,0.45) 38%, transparent 68%);
   pointer-events: none;
 }
 .etymologie__inner { display: grid; justify-items: center; gap: var(--wp--preset--spacing--50); }
@@ -497,12 +497,11 @@ figcaption {
   color: var(--wp--preset--color--accent);
   margin: 0;
 }
-/* Die Übersetzung tritt zurück: das Wort trägt den Abschnitt, die
-   Herleitung erläutert es nur. Deshalb Nebentextfarbe statt voller
-   Tinte — und eine Zeile, die nicht länger ist als das Wort breit. */
+/* Die Übersetzung tritt zurück, aber sie verschwindet nicht: eine Stufe
+   kleiner und schmaler als der Fließtext, in voller Tinte. Mit
+   Nebentextfarbe wurde das ganze Band blass. */
 .etymologie__texte {
   font-size: calc(var(--body-size) * 1.02);
-  color: var(--wp--preset--color--muted);
   max-width: 30em;
   margin: 0;
 }
