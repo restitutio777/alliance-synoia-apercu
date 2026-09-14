@@ -29,7 +29,7 @@
   --wp--preset--spacing--60: clamp(3rem, 2rem + 4vw, 5.5rem);
   --wp--preset--spacing--70: clamp(4rem, 2.5rem + 6vw, 8rem);
 
-  --wp--style--global--content-size: 40rem;
+  --wp--style--global--content-size: 44rem;
   --wp--style--global--wide-size: 76rem;
 
   /* Schriften. Fallback ist Pflicht: ohne ihn landet ein fehlendes
@@ -130,9 +130,9 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .section { padding-block: var(--wp--preset--spacing--70); }
 .section--serre { padding-block: var(--wp--preset--spacing--60); }
 .section--surface { background: var(--wp--preset--color--surface); }
-.section__tete { max-width: 48rem; margin-bottom: var(--wp--preset--spacing--50); }
+.section__tete { max-width: calc(var(--wp--style--global--content-size) * 1.5); margin-bottom: var(--wp--preset--spacing--50); }
 .section__tete .label { margin-bottom: var(--wp--preset--spacing--30); }
-.section__tete p { margin-top: var(--wp--preset--spacing--30); }
+.section__tete p { margin-top: var(--wp--preset--spacing--30); max-width: var(--wp--style--global--content-size); }
 
 .label {
   font-family: var(--sans);
@@ -231,8 +231,15 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 }
 .hero .label { margin-bottom: var(--wp--preset--spacing--40); }
 .hero h1 { margin-bottom: var(--wp--preset--spacing--40); }
-.chapeau { font-size: calc(var(--body-size) * 1.18); line-height: 1.5; max-width: 36em; }
-.hero__image img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.chapeau { font-size: calc(var(--body-size) * 1.18); line-height: 1.5; max-width: var(--wp--style--global--content-size); }
+/* Bildausschnitt: object-fit schneidet mittig zu. Wo das den falschen Teil
+   trifft, wird der Ausschnitt am Bild selbst verschoben:
+   <img style="--ausschnitt: 50% 30%"> — erster Wert links/rechts,
+   zweiter oben/unten, 0% ist oben bzw. links. Siehe ANLEITUNG.md. */
+.hero__image img, .bandeau img, .adhesion figure img {
+  object-position: var(--ausschnitt, center);
+}
+.hero__image img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
 
 figcaption {
   font-family: var(--sans);
@@ -246,7 +253,7 @@ figcaption {
 .page-tete { padding-block: var(--wp--preset--spacing--60) var(--wp--preset--spacing--40); }
 .page-tete > p:last-child { margin-bottom: 0; }
 .page-tete .label { margin-bottom: var(--wp--preset--spacing--30); }
-.page-tete h1 { max-width: 18em; }
+.page-tete h1 { max-width: calc(var(--wp--style--global--content-size) * 1.5); }
 .page-tete .chapeau { margin-top: var(--wp--preset--spacing--40); }
 /* Kopf und erster Abschnitt gehören zusammen: ihre Abstände würden sich
    sonst addieren und einen leeren Streifen erzeugen. */
