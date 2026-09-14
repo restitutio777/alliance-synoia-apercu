@@ -78,9 +78,6 @@
   --sans-weight-strong: 600;
   --caps-track: 0.14em;
   --caps-size: 0.9375rem;
-
-  /* Abstand zwischen Bildkante und äußerer Rahmenlinie (Passepartout). */
-  --cadre: 0.6rem;
 }
 
 /* ---------- Grundlagen ---------- */
@@ -305,21 +302,20 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .hero__image img, .bandeau img, .adhesion figure img {
   object-position: var(--ausschnitt, center);
 }
-.hero__image img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.hero__image img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
 
-/* Rahmen um das Hero-Bild: eine Haarlinie in Gold direkt an der Kante,
-   dann ein Streifen Papier, dann eine zweite, blasse Linie. Zusammen ein
-   Passepartout. Zwei Linien statt einer, weil eine einzelne Linie auf einem
-   Foto wie ein Versehen wirkt und zwei wie Absicht. Der äußere Ring liegt
-   als box-shadow außerhalb des Bildes, deshalb das padding am figure. */
-.hero__image { padding: calc(var(--cadre) + 1px); }
-.hero__image img {
-  border: 1px solid var(--wp--preset--color--gold-clair);
-  box-shadow:
-    0 0 0 var(--cadre) var(--wp--preset--color--base),
-    0 0 0 calc(var(--cadre) + 1px) var(--wp--preset--color--line);
+/* Hero-Bild ohne Rahmen. Auf dem Desktop füllt es die Höhe des Textblocks:
+   oben bündig mit dem Titel, unten mit dem Vorspann, damit beide Spalten
+   gemeinsam abschließen. Der Passepartout war für ein Handyfoto gedacht,
+   das Halt brauchte; ein ruhiges Motiv trägt sich selbst. */
+@media (min-width: 900.02px) {
+  .hero { align-items: stretch; }
+  .hero__image img { height: 100%; min-height: 24rem; aspect-ratio: auto; }
 }
-.hero__image figcaption { margin-top: 1rem; }
+/* Unter dem Text, auf schmalen Bildschirmen: quer, sonst wird es höher als der Bildschirm. */
+@media (max-width: 900px) {
+  .hero__image img { aspect-ratio: 4 / 3; }
+}
 
 figcaption {
   font-family: var(--sans);
