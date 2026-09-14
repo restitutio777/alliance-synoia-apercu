@@ -24,7 +24,13 @@
   --wp--preset--color--titre: #333B52;       /* Überschriften: dieselbe Tinte, aufgehellt */
   --wp--preset--color--muted: #5A6070;       /* Nebentext */
   --wp--preset--color--line: #D9D0BF;        /* Trennlinien */
-  --wp--preset--color--accent: #24386E;      /* Blau des Wappens */
+  --wp--preset--color--accent: #24386E;      /* Blau des Wappens, abgedunkelt: Verweise und Knöpfe */
+  /* Das Blau des Wappens, wie es dort wirklich steht (aus der Bilddatei
+     gemessen: #0030A8). Es gehört der Identität, nicht der Bedienung —
+     verwendet für das griechische Wort, nicht für Verweise und Knöpfe.
+     Die stehen weiter im abgedunkelten Ton, sonst konkurrieren zwei
+     gleich laute Blau auf derselben Seite. */
+  --wp--preset--color--blason: #0F3AA8;
   --wp--preset--color--accent-dark: #1A2A55;
   --wp--preset--color--gold: #A8873F;        /* Gold des Wappens, sparsam */
   --wp--preset--color--gold-clair: #C9AE76;  /* dasselbe Gold, aufgehellt: nur für Haarlinien */
@@ -494,7 +500,7 @@ figcaption {
      Versalien. Eine Spur mehr Weite lässt das Wort atmen, ohne es
      auseinanderzuziehen. */
   letter-spacing: 0.02em;
-  color: var(--wp--preset--color--accent);
+  color: var(--wp--preset--color--blason);
   margin: 0;
 }
 /* Die Übersetzung tritt zurück, aber sie verschwindet nicht: eine Stufe
@@ -953,6 +959,7 @@ figcaption {
     --wp--preset--color--muted: #333;
     --wp--preset--color--line: #999;
     --wp--preset--color--accent: #000;
+    --wp--preset--color--blason: #000;
     --wp--preset--color--gold: #666;
     --wp--style--global--content-size: 100%;
     --wp--style--global--wide-size: 100%;
