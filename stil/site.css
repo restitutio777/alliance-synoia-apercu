@@ -40,7 +40,10 @@
   --wp--preset--font-size--small: 1.0625rem;
   --wp--preset--font-size--large: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
   --wp--preset--font-size--x-large: clamp(1.875rem, 1.3rem + 2vw, 2.875rem);
-  --wp--preset--font-size--xx-large: clamp(2.5rem, 1.5rem + 3.8vw, 4.75rem);
+  /* 4,75rem waren 76 px auf dem Desktop: die Überschrift stand dann als
+     Block über dem Text und erschlug ihn. 3,8rem sind 61 px — immer noch
+     die lauteste Stimme der Seite, aber sie spricht, statt zu rufen. */
+  --wp--preset--font-size--xx-large: clamp(2.25rem, 1.4rem + 2.7vw, 3.8rem);
 
   --wp--preset--spacing--30: 1rem;
   --wp--preset--spacing--40: 1.5rem;
@@ -323,7 +326,9 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
   padding-block: var(--wp--preset--spacing--70);
 }
 .hero .label { margin-bottom: var(--wp--preset--spacing--40); }
-.hero h1 { margin-bottom: var(--wp--preset--spacing--40); }
+/* Die kleinere Überschrift braucht den Abstand, den ihre Größe vorher
+   selbst hergestellt hat, sonst klebt der Vorspann an ihr. */
+.hero h1 { margin-bottom: var(--wp--preset--spacing--50); }
 .chapeau { font-size: calc(var(--body-size) * 1.18); line-height: 1.5; max-width: var(--wp--style--global--content-size); }
 /* Bildausschnitt: object-fit schneidet mittig zu. Wo das den falschen Teil
    trifft, wird der Ausschnitt verschoben — hier im Stylesheet, eine Zeile
