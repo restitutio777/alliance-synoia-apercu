@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.classList.add("js")</script>
 <title>Adhésion · Alliance Synoïa</title>
 <meta name="description" content="Adhérer à l’Alliance Synoïa : 17 euros ou francs suisses par an. La première adhésion, en 2026, est offerte à tous.">
 <link rel="icon" href="medien/wappen/blason-provisoire-160.png" type="image/png">
@@ -12,6 +11,7 @@
 <link rel="preload" href="schriften/ysabeau-office-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="stil/schriften.css">
 <link rel="stylesheet" href="stil/site.css">
+<script src="skript/site.js"></script>
 </head>
 <body class="page-adhesion">
 
@@ -119,18 +119,6 @@
   </div>
 </footer>
 
-
-<script>
-(function () {
-  var kopf = document.querySelector('.site-header');
-  var knopf = kopf && kopf.querySelector('.nav-bascule');
-  if (!knopf) return;
-  knopf.addEventListener('click', function () {
-    var offen = kopf.classList.toggle('est-ouverte');
-    knopf.setAttribute('aria-expanded', String(offen));
-  });
-})();
-</script>
 
 </body>
 </html>

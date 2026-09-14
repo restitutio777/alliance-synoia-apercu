@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.classList.add("js")</script>
 <title>Concept Synoïa · Alliance Synoïa</title>
 <meta name="description" content="La Synoïa harmogène : un système sociétal dynamique fondé sur la conscience connective et la cohérence régénératrice. Définition et quatre principes fondamentaux.">
 <link rel="icon" href="medien/wappen/blason-provisoire-160.png" type="image/png">
@@ -12,6 +11,7 @@
 <link rel="preload" href="schriften/ysabeau-office-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="stil/schriften.css">
 <link rel="stylesheet" href="stil/site.css">
+<script src="skript/site.js"></script>
 </head>
 <body class="page-concept">
 
@@ -47,6 +47,16 @@
     <p class="chapeau"><b>Synoïa</b> évoque la conscience connective fluide et adaptative. <b>Harmogène</b> évoque la cohérence et la génération d’harmonie, donc la recherche d’équilibre.</p>
   </section>
 
+  <nav class="sommaire wrap" aria-labelledby="sommaire-titre">
+    <p class="label" id="sommaire-titre">Sur cette page</p>
+    <ol>
+      <li><a href="#definition">La Synoïa Harmogène</a></li>
+      <li><a href="#principes">Les principes fondamentaux</a></li>
+      <li><a href="#applications">Applications possibles</a></li>
+      <li><a href="#synosphere">Le concept de Synosphère</a></li>
+    </ol>
+  </nav>
+
   <section class="section--serre wrap">
     <div class="lecture article">
       <p>Ensemble, ces deux termes, Synoïa harmogène, décrivent un modèle de société dynamique, consciente des intrications du Vivant et régulée par une attention génératrice d’harmonie. Ce modèle répond à un besoin émergeant au sein des populations et pose la trame d’un nouveau récit collectif nécessaire à l’incarnation d’un nouveau paradigme.</p>
@@ -66,7 +76,7 @@
   <section class="section wrap">
     <div class="section__tete">
       <p class="label">Définition</p>
-      <h2>La Synoïa Harmogène</h2>
+      <h2 id="definition">La Synoïa Harmogène</h2>
     </div>
     <div class="lecture article">
       <p>La <i>Synoïa Harmogène</i> est un système sociétal dynamique, fondé sur la conscience connective (synoïa) et la cohérence régénératrice (harmogène).</p>
@@ -76,9 +86,9 @@
 
   <section class="section section--surface">
     <div class="wrap">
-      <div class="section__tete">
+      <div class="section__tete section__tete--large">
         <p class="label">Concept Synoïa</p>
-        <h2>Les principes fondamentaux</h2>
+        <h2 id="principes">Les principes fondamentaux</h2>
       </div>
 
       <ol class="principes">
@@ -121,9 +131,9 @@
   <section class="section wrap">
     <div class="section__tete">
       <p class="label">Applications possibles</p>
-      <h2>Ce que cela change, concrètement</h2>
+      <h2 id="applications">Ce que cela change, concrètement</h2>
     </div>
-    <ul class="cartes">
+    <ul class="cartes cartes--serre">
       <li class="carte">
         <h3>Gouvernance</h3>
         <p>Modèles décentralisés et adaptatifs, de type holacratie organique.</p>
@@ -152,7 +162,7 @@
   <section class="section wrap">
     <div class="section__tete">
       <p class="label">Il en découle</p>
-      <h2>Le concept de Synosphère</h2>
+      <h2 id="synosphere">Le concept de Synosphère</h2>
     </div>
     <div class="lecture article">
       <p>La Synosphère désigne, par déclinaison du terme Synoïa, le <b>champ global où s’exerce la conscience connective</b>, c’est-à-dire la trame unifiée à travers laquelle les êtres vivants, les milieux et les formes de pensée participent d’une même présence. Elle n’est pas un objet mais un champ d’Être.</p>
@@ -211,18 +221,6 @@
   </div>
 </footer>
 
-
-<script>
-(function () {
-  var kopf = document.querySelector('.site-header');
-  var knopf = kopf && kopf.querySelector('.nav-bascule');
-  if (!knopf) return;
-  knopf.addEventListener('click', function () {
-    var offen = kopf.classList.toggle('est-ouverte');
-    knopf.setAttribute('aria-expanded', String(offen));
-  });
-})();
-</script>
 
 </body>
 </html>

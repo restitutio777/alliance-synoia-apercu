@@ -16,6 +16,7 @@
   --wp--preset--color--accent: #24386E;      /* Blau des Wappens */
   --wp--preset--color--accent-dark: #1A2A55;
   --wp--preset--color--gold: #A8873F;        /* Gold des Wappens, sparsam */
+  --wp--preset--color--gold-clair: #C9AE76;  /* dasselbe Gold, aufgehellt: nur für Haarlinien */
   --wp--preset--color--feld: #FFFDF9;        /* Formularfelder */
 
   --wp--preset--font-size--small: 1.0625rem;
@@ -25,11 +26,17 @@
 
   --wp--preset--spacing--30: 1rem;
   --wp--preset--spacing--40: 1.5rem;
-  --wp--preset--spacing--50: clamp(2rem, 1.5rem + 2vw, 3rem);
-  --wp--preset--spacing--60: clamp(3rem, 2rem + 4vw, 5.5rem);
-  --wp--preset--spacing--70: clamp(4rem, 2.5rem + 6vw, 8rem);
+  --wp--preset--spacing--50: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --wp--preset--spacing--60: clamp(2.5rem, 1.8rem + 2.6vw, 4rem);
+  --wp--preset--spacing--70: clamp(3rem, 2.2rem + 3.4vw, 5.5rem);
 
-  --wp--style--global--content-size: 44rem;
+  /* Lesespalte. Gemessen, nicht geschätzt: EB Garamond bei 23 px bringt
+     rund 0,42 em je Zeichen, 45rem sind damit etwa 73 Zeichen je Zeile.
+     Das ist das obere Ende dessen, was eine Serifenschrift bequem trägt.
+     50rem wären 83 Zeichen — die Zeile wird dann so lang, dass das Auge
+     den Zeilenanfang sucht. Breiter also nicht, auch wenn es die Seite
+     kürzer machen würde. */
+  --wp--style--global--content-size: 45rem;
   --wp--style--global--wide-size: 76rem;
 
   /* Schriften. Fallback ist Pflicht: ohne ihn landet ein fehlendes
@@ -54,6 +61,9 @@
   --sans-weight-strong: 600;
   --caps-track: 0.14em;
   --caps-size: 0.9375rem;
+
+  /* Abstand zwischen Bildkante und äußerer Rahmenlinie (Passepartout). */
+  --cadre: 0.6rem;
 }
 
 /* ---------- Grundlagen ---------- */
@@ -121,7 +131,13 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
   margin-inline: auto;
   padding-inline: clamp(1rem, 4vw, 2.5rem);
 }
-.lecture { max-width: var(--wp--style--global--content-size); }
+/* Die Lesespalte steht mittig im Satzspiegel, nicht am linken Rand.
+   Links angeschlagen sah die Seite aus wie die erste Hälfte eines
+   zweispaltigen Layouts, dessen zweite Spalte fehlt: 512 px tote Fläche
+   rechts neben jedem Absatz. Mittig werden daraus zwei gleiche Ränder,
+   und der Wechsel zwischen schmalem Lesetext und breiten Rastern
+   (Prinzipien, Karten, Berufungen) gibt der Seite ihren Rhythmus. */
+.lecture { max-width: var(--wp--style--global--content-size); margin-inline: auto; }
 .lecture p, .chapeau, .principe p, .vocation p, .faq__reponse p, .bloc-texte p {
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -130,7 +146,14 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .section { padding-block: var(--wp--preset--spacing--70); }
 .section--serre { padding-block: var(--wp--preset--spacing--60); }
 .section--surface { background: var(--wp--preset--color--surface); }
-.section__tete { max-width: calc(var(--wp--style--global--content-size) * 1.5); margin-bottom: var(--wp--preset--spacing--50); }
+
+/* Eine Zwischenüberschrift beginnt an derselben Kante wie das, was unter
+   ihr steht. Über Lesetext heißt das: auf der Lesespalte, mittig.
+   Über einem Raster, das die volle Breite nutzt: --large, linksbündig.
+   Wer das vertauscht, erzeugt genau den Versatz, den wir schon einmal
+   beseitigt haben. */
+.section__tete { max-width: var(--wp--style--global--content-size); margin-inline: auto; margin-bottom: var(--wp--preset--spacing--50); }
+.section__tete--large { max-width: none; margin-inline: 0; }
 .section__tete .label { margin-bottom: var(--wp--preset--spacing--30); }
 .section__tete p { margin-top: var(--wp--preset--spacing--30); max-width: var(--wp--style--global--content-size); }
 
@@ -233,13 +256,30 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .hero h1 { margin-bottom: var(--wp--preset--spacing--40); }
 .chapeau { font-size: calc(var(--body-size) * 1.18); line-height: 1.5; max-width: var(--wp--style--global--content-size); }
 /* Bildausschnitt: object-fit schneidet mittig zu. Wo das den falschen Teil
-   trifft, wird der Ausschnitt am Bild selbst verschoben:
-   <img style="--ausschnitt: 50% 30%"> — erster Wert links/rechts,
-   zweiter oben/unten, 0% ist oben bzw. links. Siehe ANLEITUNG.md. */
+   trifft, wird der Ausschnitt verschoben — hier im Stylesheet, eine Zeile
+   je Bild, adressiert über den Dateinamen.
+   Erster Wert links/rechts, zweiter oben/unten, 0% ist oben bzw. links.
+   Nicht als style="" ans Bild schreiben: die Content-Security-Policy
+   erlaubt keine Inline-Styles (siehe memory/SICHERHEIT.md). */
 .hero__image img, .bandeau img, .adhesion figure img {
   object-position: var(--ausschnitt, center);
 }
+img[src$="torrent.jpg"] { --ausschnitt: 50% 34%; }
 .hero__image img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+
+/* Rahmen um das Hero-Bild: eine Haarlinie in Gold direkt an der Kante,
+   dann ein Streifen Papier, dann eine zweite, blasse Linie. Zusammen ein
+   Passepartout. Zwei Linien statt einer, weil eine einzelne Linie auf einem
+   Foto wie ein Versehen wirkt und zwei wie Absicht. Der äußere Ring liegt
+   als box-shadow außerhalb des Bildes, deshalb das padding am figure. */
+.hero__image { padding: calc(var(--cadre) + 1px); }
+.hero__image img {
+  border: 1px solid var(--wp--preset--color--gold-clair);
+  box-shadow:
+    0 0 0 var(--cadre) var(--wp--preset--color--base),
+    0 0 0 calc(var(--cadre) + 1px) var(--wp--preset--color--line);
+}
+.hero__image figcaption { margin-top: 1rem; }
 
 figcaption {
   font-family: var(--sans);
@@ -249,15 +289,61 @@ figcaption {
   margin-top: 0.6rem;
 }
 
-/* Kopf einer Unterseite: schmaler, ohne Bild. */
+/* Kopf einer Unterseite: schmaler, ohne Bild. Label, Titel und Vorspann
+   stehen auf derselben Lesespalte wie der Text darunter — eine einzige
+   linke Kante über die ganze Seite. */
 .page-tete { padding-block: var(--wp--preset--spacing--60) var(--wp--preset--spacing--40); }
+.page-tete > * { max-width: var(--wp--style--global--content-size); margin-inline: auto; }
 .page-tete > p:last-child { margin-bottom: 0; }
 .page-tete .label { margin-bottom: var(--wp--preset--spacing--30); }
-.page-tete h1 { max-width: calc(var(--wp--style--global--content-size) * 1.5); }
 .page-tete .chapeau { margin-top: var(--wp--preset--spacing--40); }
 /* Kopf und erster Abschnitt gehören zusammen: ihre Abstände würden sich
    sonst addieren und einen leeren Streifen erzeugen. */
 .page-tete + .section--serre { padding-block-start: var(--wp--preset--spacing--40); }
+
+/* ---------- Inhaltsverzeichnis der langen Seiten ---------- */
+
+/* Concept und Alliance sind lange Texte — 630 und 1470 Wörter, und kein
+   Wort davon dürfen wir kürzen. Was gegen die Länge hilft, ist nicht
+   engerer Satz, sondern die Möglichkeit, gezielt hinzuspringen. Deshalb
+   hier eine Liste statt eines mitlaufenden Verzeichnisses am Rand: sie
+   funktioniert ohne JavaScript, sie steht auch im PDF, und sie überlebt
+   den Umzug nach WordPress als gewöhnlicher Block. */
+.sommaire {
+  padding-block: 0 var(--wp--preset--spacing--50);
+}
+.sommaire > * { max-width: var(--wp--style--global--content-size); margin-inline: auto; }
+.sommaire .label { margin-bottom: var(--wp--preset--spacing--30); }
+.sommaire ol {
+  list-style: none;
+  margin-inline: auto;   /* nicht auf 0 setzen: die Liste steht auf der Lesespalte */
+  margin-block: 0;
+  padding: 0;
+  counter-reset: sommaire;
+  border-top: 1px solid var(--wp--preset--color--line);
+}
+.sommaire li { counter-increment: sommaire; border-bottom: 1px solid var(--wp--preset--color--line); }
+.sommaire a {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-block: 0.7rem;
+  font-family: var(--sans);
+  font-size: var(--wp--preset--font-size--small);
+  font-weight: var(--sans-weight);
+  text-decoration: none;
+  color: var(--wp--preset--color--contrast);
+}
+.sommaire a::before {
+  content: counter(sommaire, decimal-leading-zero);
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0.08em;
+  color: var(--wp--preset--color--gold);
+}
+.sommaire a:hover { color: var(--wp--preset--color--accent); }
+/* Ein Sprungziel darf nicht unter dem Kopf der Seite landen. */
+:target { scroll-margin-top: var(--wp--preset--spacing--50); }
 
 /* ---------- Etymologie ---------- */
 
@@ -384,13 +470,26 @@ figcaption {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--wp--preset--spacing--50);
 }
+/* Vier kurze Karten auf hellem Grund, mitten im Lesetext: über die volle
+   Breite gezogen sähen sie aus wie ein Versatz. Zwei mal zwei auf der
+   Lesespalte halten die linke Kante der Seite. */
+.cartes--serre {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: var(--wp--style--global--content-size);
+  margin-inline: auto;
+}
 .carte { display: grid; align-content: start; gap: 0.85rem; border-top: 1px solid var(--wp--preset--color--line); padding-top: var(--wp--preset--spacing--40); }
 .carte p { margin: 0; }
 .carte h3 { font-size: calc(var(--wp--preset--font-size--large) * 0.92); }
 
 /* ---------- FAQ ---------- */
 
-.faq { border-bottom: 1px solid var(--wp--preset--color--line); max-width: 54rem; }
+/* Eine einzige linke Kante über die ganze Seite: Fragen, Antworten,
+   Gruppentitel und der Seitenkopf stehen alle auf der Lesespalte.
+   Vorher war der Block 54rem breit, der Kopf 45rem — das ergab zwei
+   Kanten im Abstand von 72 px, sichtbar beim Scrollen. */
+.faq { border-bottom: 1px solid var(--wp--preset--color--line); max-width: var(--wp--style--global--content-size); margin-inline: auto; }
+.page-faq main h2.label { max-width: var(--wp--style--global--content-size); margin-inline: auto; }
 .faq details { border-top: 1px solid var(--wp--preset--color--line); }
 .faq summary {
   list-style: none;
@@ -416,6 +515,9 @@ figcaption {
   transition: transform 0.2s ease;
 }
 .faq details[open] summary::after { transform: rotate(45deg); }
+/* Die Frage darf über die ganze Breite des Blocks laufen, die Antwort
+   nicht: 54rem sind bei 23 px rund 100 Zeichen je Zeile, und bei so einer
+   Zeile findet das Auge den nächsten Anfang nicht mehr. */
 .faq__reponse { padding-bottom: 1.5rem; max-width: var(--wp--style--global--content-size); }
 .faq__reponse p:last-child { margin-bottom: 0; }
 
@@ -504,6 +606,7 @@ figcaption {
   border-top: 1px solid var(--wp--preset--color--line);
   padding-top: var(--wp--preset--spacing--40);
   max-width: var(--wp--style--global--content-size);
+  margin-inline: auto;
 }
 .telecharger__bloc .label { margin-bottom: 0.6rem; }
 .telecharger__bloc p { margin-bottom: 0; }
@@ -519,7 +622,11 @@ figcaption {
   font-size: var(--wp--preset--font-size--small);
   line-height: 1.6;
   max-width: var(--wp--style--global--content-size);
+  margin-inline: auto;
 }
+/* In der Randspalte eines zweispaltigen Blocks bleibt der Kasten dort,
+   wo er steht. */
+.adhesion__texte .avis { margin-inline: 0; }
 .avis p:last-child { margin-bottom: 0; }
 .avis .label { margin-bottom: 0.5rem; }
 
@@ -635,7 +742,8 @@ figcaption {
 
   /* Alles, was auf Papier nichts verloren hat. */
   .site-header, .site-footer, .saut, .actions, .formulaire,
-  .avis, .bandeau, .hero__image, .nav-bascule, .telecharger { display: none; }
+  .avis, .bandeau, .hero__image, .nav-bascule, .telecharger,
+  .sommaire { display: none; }
 
   .wrap { max-width: none; padding-inline: 0; margin: 0; }
   .lecture, .vocation__corps, .faq__reponse { max-width: none; }

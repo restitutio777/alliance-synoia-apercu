@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.classList.add("js")</script>
 <title>Alliance Synoïa · Alliance Synoïa</title>
 <meta name="description" content="L’Alliance Synoïa, une Université libre du Vivant : un lieu d’exploration, une vocation à essaimer, un lieu de recherche pour et avec une science éclairée.">
 <link rel="icon" href="medien/wappen/blason-provisoire-160.png" type="image/png">
@@ -12,6 +11,7 @@
 <link rel="preload" href="schriften/ysabeau-office-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="stil/schriften.css">
 <link rel="stylesheet" href="stil/site.css">
+<script src="skript/site.js"></script>
 </head>
 <body class="page-alliance">
 
@@ -47,13 +47,22 @@
     <p class="chapeau">L’Alliance Synoïa peut se définir comme l’incarnation d’une conscience nouvelle qui répond au vide existentiel de l’humanité laissé à l’aube du 21<sup>e</sup> siècle.</p>
   </section>
 
+  <nav class="sommaire wrap" aria-labelledby="sommaire-titre">
+    <p class="label" id="sommaire-titre">Sur cette page</p>
+    <ol>
+      <li><a href="#synoia-harmogene">La synoïa harmogène</a></li>
+      <li><a href="#vocations">La triple vocation</a></li>
+      <li><a href="#convergence">Un lieu d’exploration et de convergence</a></li>
+    </ol>
+  </nav>
+
   <section class="section--serre wrap">
     <div class="lecture article">
       <p>Elle souhaite combler le besoin profond d’une nouvelle organisation de vie, sur des bases spirituellement élevées, fortement exprimé dans nos consultations préalables au sein de la population qui appelle cette transition.</p>
       <p>Synoïa n’est pas qu’un concept qu’il fallait nommer, c’est un manifeste, une école de la Conscience, ouverte à tous les contributeurs d’un nouveau modèle sociétal.</p>
       <p>Ce qui ressort de nos constats est que l’homme ne veut plus être réduit au simple producteur-consommateur du modèle passé. Il aspire à reconnecter l’essence de toute chose et retrouver la nature de sa responsabilité au sein des interactions du Vivant, dans le respect de celui-ci et la recherche des équilibres. C’est à la fois un concept ancien et oublié et une philosophie du présent qu’il faut redéfinir et renommer en tant que récit collectif.</p>
 
-      <h2>La synoïa harmogène</h2>
+      <h2 id="synoia-harmogene">La synoïa harmogène</h2>
       <p>Nous l’appellerons la <i>synoïa harmogène</i>, à savoir, littéralement, une conscience connective génératrice d’harmonie (<a href="concept.html">voir le concept de Synoïa</a>).</p>
       <p>Cette Synoïa (<span lang="grc">συνοΐα</span>) – du grec <span lang="grc">σύν</span> (<i>syn</i>) : « en union » et <span lang="grc">νοῦς</span> (<i>noûs</i>) : « principe de conscience » – englobe tout un fond sociétal, incluant entre autres éléments fondateurs, une charte, une constitution et une gouvernance, que nous présenteront par la suite, qui sont la colonne vertébrale d’une nouvelle organisation de la société humaine.</p>
       <p>Retenons pour le moment que la <b>Synoïa</b> est la conscience connective : l’unité vivante des esprits dans un champ commun d’intelligibilité, où chaque être demeure singulier tout en participant d’une même présence. La Synoïa est la source nourricière d’un nouveau récit collectif qui sera le fil rouge d’une feuille de route pour la conscience émergente. Ainsi, une société basée sur la collaboration et non plus sur la concurrence, s’enrichit de ses différences au lieu de s’appauvrir en les supprimant.</p>
@@ -68,15 +77,15 @@
 
   <section class="bandeau">
     <figure>
-      <img src="medien/fotos/torrent.jpg" width="1193" height="2048" style="--ausschnitt: 50% 34%" alt="Torrent de montagne longeant une prairie" loading="lazy">
+      <img src="medien/fotos/torrent.jpg" width="1193" height="2048" alt="Torrent de montagne longeant une prairie" loading="lazy">
     </figure>
   </section>
 
   <section class="section section--surface">
     <div class="wrap">
-      <div class="section__tete">
+      <div class="section__tete section__tete--large">
         <p class="label">Concrètement</p>
-        <h2>La triple vocation de l’Alliance Synoïa</h2>
+        <h2 id="vocations">La triple vocation de l’Alliance Synoïa</h2>
       </div>
 
       <ol class="vocations">
@@ -145,7 +154,7 @@
   <section class="section wrap">
     <div class="section__tete">
       <p class="label">En résumé</p>
-      <h2>Un lieu d’exploration et de convergence</h2>
+      <h2 id="convergence">Un lieu d’exploration et de convergence</h2>
     </div>
     <div class="lecture article">
       <p>Un lieu qui aura à cœur de dynamiser la pensée créatrice, la recherche appliquée et la recherche fondamentale, de l’épauler au quotidien, d’informer et d’enseigner par une vulgarisation de qualité dans tous les domaines de pointe qui aujourd’hui émergent. Sujets qui révolutionnent déjà la compréhension du Vivant et de son environnement et par là-même le mode de vie et le niveau de conscience de chacun.</p>
@@ -198,18 +207,6 @@
   </div>
 </footer>
 
-
-<script>
-(function () {
-  var kopf = document.querySelector('.site-header');
-  var knopf = kopf && kopf.querySelector('.nav-bascule');
-  if (!knopf) return;
-  knopf.addEventListener('click', function () {
-    var offen = kopf.classList.toggle('est-ouverte');
-    knopf.setAttribute('aria-expanded', String(offen));
-  });
-})();
-</script>
 
 </body>
 </html>
