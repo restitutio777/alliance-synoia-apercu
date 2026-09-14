@@ -305,7 +305,6 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .hero__image img, .bandeau img, .adhesion figure img {
   object-position: var(--ausschnitt, center);
 }
-img[src$="torrent.jpg"] { --ausschnitt: 50% 34%; }
 .hero__image img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
 
 /* Rahmen um das Hero-Bild: eine Haarlinie in Gold direkt an der Kante,
