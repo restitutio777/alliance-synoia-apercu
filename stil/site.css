@@ -41,13 +41,15 @@
      23 px etwa 73 Zeichen je Zeile, gemessen (EB Garamond bringt 8,58 px
      je Zeichen). 50rem wären 83 Zeichen, zu lang. Rechts bleibt dadurch
      Luft — die ist gewollt und ruhig, solange sie immer auf derselben
-     Seite liegt. Deshalb ist der Satzspiegel auf 66rem verengt: so sind
-     es rund 250 px Luft statt 420 px.
+     Seite liegt. Der Satzspiegel ist auf 70rem gesetzt: schmal genug,
+     dass rechts nur rund 320 px Luft bleiben statt 420, und breit genug,
+     dass Kopf und Fuß nicht gequetscht werden. 66rem waren zu eng — dort
+     brach die Wortmarke um und die Navigation klebte an ihr.
 
      Nicht zentrieren. Zentrierter Lesetext neben linksbündigen Rastern
      erzeugt genau den Versatz, den diese Regel verhindert. */
   --wp--style--global--content-size: 45rem;
-  --wp--style--global--wide-size: 66rem;
+  --wp--style--global--wide-size: 70rem;
 
   /* Schriften. Fallback ist Pflicht: ohne ihn landet ein fehlendes
      Zeichen bei Times New Roman. */
@@ -219,15 +221,29 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 
 /* ---------- Kopf ---------- */
 
+/* Der Kopf muss in den Satzspiegel passen, sonst staucht Flexbox das
+   erste nachgiebige Element — und das ist die Wortmarke. Genau das ist
+   passiert: „Alliance Synoïa" brach zweizeilig um und klebte an der
+   Navigation. Drei Vorkehrungen dagegen:
+   1. die Wortmarke bricht nie um und schrumpft nie (nowrap, flex-shrink 0)
+   2. zwischen Marke und Navigation liegt ein echter Abstand, kein Rest
+   3. die Navigation ist kompakter gesetzt als der Fließtext */
 .site-header {
   display: flex;
   align-items: center;
-  gap: var(--wp--preset--spacing--40);
+  gap: var(--wp--preset--spacing--50);
   padding-block: 1.1rem;
   border-bottom: 1px solid var(--wp--preset--color--line);
 }
-.marque { display: inline-flex; align-items: center; gap: 0.85rem; text-decoration: none; margin-right: auto; }
-.marque img { width: auto; height: 3.5rem; }
+.marque {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  margin-right: auto;
+  flex: 0 0 auto;
+}
+.marque img { width: auto; height: 3.5rem; flex: 0 0 auto; }
 .marque__nom {
   font-family: var(--serif);
   font-weight: var(--wordmark-weight);
@@ -235,11 +251,16 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
   letter-spacing: 0.16em;
   text-transform: uppercase;
   line-height: 1.2;
+  white-space: nowrap;
 }
-.nav ul { display: flex; gap: clamp(0.9rem, 1.8vw, 1.9rem); list-style: none; margin: 0; padding: 0; }
+.nav { flex: 0 1 auto; }
+/* Fester Abstand, nicht an vw gekoppelt: der Satzspiegel steht ab
+   1120 px still, ein mit dem Fenster wachsender Abstand würde die
+   Navigation dort gegen die Wortmarke schieben. */
+.nav ul { display: flex; gap: 1.15rem; list-style: none; margin: 0; padding: 0; }
 .nav a {
   font-family: var(--sans);
-  font-size: var(--wp--preset--font-size--small);
+  font-size: 1rem;
   font-weight: var(--sans-weight);
   letter-spacing: 0.02em;
   text-decoration: none;
@@ -250,15 +271,24 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 }
 .nav a:hover, .nav a[aria-current="page"] { background-size: 100% 1px; }
 
+/* Der Knopf im Kopf ist enger gesetzt als die Knöpfe im Text: hier zählt
+   jeder Pixel, sonst drängt er die Navigation gegen die Wortmarke. */
+.site-header__cta { flex: 0 0 auto; font-size: 1rem; padding: 0.9em 1.25em; letter-spacing: 0.05em; }
+
 .nav-bascule { display: none; }
 
 /* ---------- Einstieg ---------- */
 
+/* Text und Bild beginnen auf derselben Höhe. Mittig ausgerichtet stand
+   das Bild 121 px tiefer als die Überschrift — auf einem breiten Schirm
+   sieht das aus, als wäre es verrutscht, nicht als wäre es gesetzt.
+   Oben bündig ist die einzige Ausrichtung, die bei jeder Textlänge
+   vorhersehbar bleibt. */
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: var(--wp--preset--spacing--60);
-  align-items: center;
+  align-items: start;
   padding-block: var(--wp--preset--spacing--70);
 }
 .hero .label { margin-bottom: var(--wp--preset--spacing--40); }
@@ -663,10 +693,42 @@ figcaption {
 /* ---------- Fuß ---------- */
 
 .site-footer { background: var(--wp--preset--color--contrast); color: #E7E1D6; padding-block: var(--wp--preset--spacing--60); }
-.site-footer__inner { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--wp--preset--spacing--50); align-items: center; }
-.site-footer .marque { margin: 0; }
-.site-footer__assoc { font-family: var(--sans); font-size: var(--wp--preset--font-size--small); line-height: 1.6; margin: 0; color: #C9C3B8; }
-.site-footer nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-family: var(--sans); font-size: var(--wp--preset--font-size--small); }
+
+/* Drei Spalten nebeneinander ließen der mittleren 243 px für einen Text,
+   der zwei Zeilen lang ist — er brach auf fünf um und klemmte zwischen
+   Wappen und Linkliste. Jetzt zwei Zeilen: oben Marke und Links, darunter
+   die Vereinsangaben über die ganze Breite. Nichts drängt mehr. */
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--wp--preset--spacing--60);
+  row-gap: var(--wp--preset--spacing--50);
+  align-items: center;
+}
+.site-footer .marque { margin: 0; grid-column: 1; grid-row: 1; }
+.site-footer nav {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem 1.75rem;
+  font-family: var(--sans);
+  font-size: var(--wp--preset--font-size--small);
+}
+.site-footer__assoc {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  font-family: var(--sans);
+  font-size: var(--wp--preset--font-size--small);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 44em;
+  color: #C9C3B8;
+  padding-top: var(--wp--preset--spacing--40);
+  border-top: 1px solid rgba(231, 225, 214, 0.16);
+}
 .site-footer nav a { text-decoration: none; }
 .site-footer nav a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
 
@@ -717,7 +779,9 @@ figcaption {
   .hero, .adhesion { grid-template-columns: minmax(0, 1fr); }
   .hero { padding-block: var(--wp--preset--spacing--60); }
   .principes, .cartes { grid-template-columns: minmax(0, 1fr); }
-  .site-footer__inner { grid-template-columns: minmax(0, 1fr); gap: var(--wp--preset--spacing--40); }
+  .site-footer__inner { grid-template-columns: minmax(0, 1fr); row-gap: var(--wp--preset--spacing--40); }
+  .site-footer nav { grid-column: 1; grid-row: 2; justify-self: start; justify-content: flex-start; }
+  .site-footer__assoc { grid-row: 3; }
 }
 
 @media (max-width: 600px) {
