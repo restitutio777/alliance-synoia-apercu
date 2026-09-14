@@ -280,10 +280,15 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 /* Fester Abstand, nicht an vw gekoppelt: der Satzspiegel steht ab
    1120 px still, ein mit dem Fenster wachsender Abstand würde die
    Navigation dort gegen die Wortmarke schieben. */
-.nav ul { display: flex; gap: 1.15rem; list-style: none; margin: 0; padding: 0; }
+.nav ul { display: flex; gap: 1.45rem; list-style: none; margin: 0; padding: 0; }
+/* 1.125rem statt 1rem: die Navigation war kleiner gesetzt als alles
+   andere und wurde dadurch schwer lesbar. Möglich wurde das erst,
+   nachdem „Concept Synoïa" und „Alliance Synoïa" im Menü zu „Concept"
+   und „Alliance" gekürzt wurden — der Zusatz stand ohnehin zweimal im
+   Kopf, einmal in der Wortmarke daneben. */
 .nav a {
   font-family: var(--sans);
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: var(--sans-weight);
   letter-spacing: 0.02em;
   text-decoration: none;
