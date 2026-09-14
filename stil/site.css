@@ -8,8 +8,18 @@
 
 :root {
   /* Farben. Wenige, ruhig, kein Verlauf. */
+  /* Drei helle Flächen, nicht eine. Eine einzige beige Fläche über neun
+     Seiten wirkt trüb; drei gestufte Töne geben der Seite einen Takt,
+     ohne dass irgendwo Weiß auftaucht. Weiß ist ausgeschlossen: Frédéric
+     hat strahlende Flächen ausdrücklich als anstrengend benannt.
+       Papier  — der Lesegrund, bleibt wie er war
+       Sable   — abgesetzter Abschnitt, wärmer und eine Stufe tiefer
+       Pierre  — die tiefste helle Fläche, leicht kühl statt gelb.
+     Die Kühle ist der eigentliche Griff: sie setzt die beiden warmen
+     Töne ab, während eine vierte Beigestufe sie nur verwaschen hätte. */
   --wp--preset--color--base: #F7F3EC;        /* Papier */
-  --wp--preset--color--surface: #EFE8DC;     /* abgesetzter Abschnitt */
+  --wp--preset--color--surface: #EFE7D7;     /* Sable: abgesetzter Abschnitt */
+  --wp--preset--color--pierre: #E6E4DB;      /* Pierre: tiefste helle Fläche, kühl */
   --wp--preset--color--contrast: #1B2130;    /* Text, Fußbereich */
   --wp--preset--color--muted: #5A6070;       /* Nebentext */
   --wp--preset--color--line: #D9D0BF;        /* Trennlinien */
@@ -161,6 +171,10 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .section { padding-block: var(--wp--preset--spacing--70); }
 .section--serre { padding-block: var(--wp--preset--spacing--60); }
 .section--surface { background: var(--wp--preset--color--surface); }
+/* Pierre trägt die Abschnitte, die für sich stehen: die Etymologie und
+   der Beitrittsblock am Seitenende. Dadurch wird die Seite nach unten
+   hin eine Spur tiefer und läuft nicht abrupt in den dunklen Fuß. */
+.section--pierre { background: var(--wp--preset--color--pierre); }
 
 /* Zwischenüberschriften beginnen an der Seitenkante wie alles andere.
    Der Titel darf über die volle Breite laufen, der erklärende Satz
@@ -430,7 +444,7 @@ figcaption {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: var(--wp--preset--color--surface);
+  background: var(--wp--preset--color--pierre);
   padding-block: var(--wp--preset--spacing--70);
   text-align: center;
 }
@@ -901,6 +915,7 @@ figcaption {
   :root {
     --wp--preset--color--base: #fff;
     --wp--preset--color--surface: #fff;
+    --wp--preset--color--pierre: #fff;
     --wp--preset--color--contrast: #000;
     --wp--preset--color--muted: #333;
     --wp--preset--color--line: #999;
