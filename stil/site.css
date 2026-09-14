@@ -20,8 +20,14 @@
   --wp--preset--color--base: #F7F3EC;        /* Papier */
   --wp--preset--color--surface: #EFE7D7;     /* Sable: abgesetzter Abschnitt */
   --wp--preset--color--pierre: #E6E4DB;      /* Pierre: tiefste helle Fläche, kühl */
-  --wp--preset--color--contrast: #1B2130;    /* Text, Fußbereich */
-  --wp--preset--color--titre: #333B52;       /* Überschriften: dieselbe Tinte, aufgehellt */
+  /* Drei Stufen derselben Tinte statt einer. Die volle Tinte trägt nur
+     noch die Fläche des Fußes; gelesen wird eine Spur heller, und
+     Überschriften stehen noch eine Stufe darüber. Der Unterschied ist
+     klein und genau deshalb richtig: harte Tinte auf warmem Papier
+     wirkt wie Schwarz auf Weiß. */
+  --wp--preset--color--contrast: #1B2130;    /* Fußfläche, Druck */
+  --wp--preset--color--texte: #272E3F;       /* Fließtext */
+  --wp--preset--color--titre: #3B4460;       /* Überschriften */
   --wp--preset--color--muted: #5A6070;       /* Nebentext */
   --wp--preset--color--line: #D9D0BF;        /* Trennlinien */
   --wp--preset--color--accent: #24386E;      /* Blau des Wappens, abgedunkelt: Verweise und Knöpfe */
@@ -119,7 +125,7 @@ body {
   background-image: radial-gradient(115% 55% at 50% -12%, #FFFDF8 0%, rgba(255, 253, 248, 0) 62%);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  color: var(--wp--preset--color--contrast);
+  color: var(--wp--preset--color--texte);
   font-family: var(--serif);
   font-size: var(--body-size);
   font-weight: var(--body-weight);
@@ -412,7 +418,7 @@ figcaption {
   font-size: var(--wp--preset--font-size--small);
   font-weight: var(--sans-weight);
   text-decoration: none;
-  color: var(--wp--preset--color--contrast);
+  color: var(--wp--preset--color--texte);
 }
 .sommaire a::before {
   content: counter(sommaire, decimal-leading-zero);
@@ -478,7 +484,9 @@ figcaption {
   isolation: isolate;
   overflow: hidden;
   background: var(--wp--preset--color--pierre);
-  padding-block: clamp(5rem, 3.5rem + 5vw, 9rem);
+  /* Das Band war fast bildschirmhoch und wirkte dadurch wie eine eigene
+     Seite. Es soll ein Atemzug sein, kein Kapitel. */
+  padding-block: clamp(3.5rem, 2.6rem + 3.2vw, 6rem);
   text-align: center;
 }
 .etymologie::before {
@@ -487,12 +495,14 @@ figcaption {
   z-index: -1;
   left: 50%;
   top: 47%;
-  width: min(125vw, 1150px);
+  /* Schmaler als das Band: Licht und Ringe sollen im Satzspiegel
+     liegen und nicht bis an die Fensterkanten laufen. */
+  width: min(82vw, 780px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   background:
     repeating-radial-gradient(circle at center,
-      transparent 0 148px, var(--onde) 148px 149px),
+      transparent 0 118px, var(--onde) 118px 119px),
     radial-gradient(circle at center,
       rgba(255, 253, 246, 0.95) 0%,
       rgba(255, 253, 246, 0.55) 28%,
@@ -743,7 +753,7 @@ figcaption {
   font-size: 1.125rem;
   font-weight: 400;
   letter-spacing: 0;
-  color: var(--wp--preset--color--contrast);
+  color: var(--wp--preset--color--texte);
   background: var(--wp--preset--color--feld);
   border: 1px solid #857E70;
   border-radius: 2px;
@@ -784,7 +794,7 @@ figcaption {
   --notiz-grund: #ECEBE8;
   --notiz-kante: #C99A00;
   background: var(--notiz-grund);
-  color: var(--wp--preset--color--contrast);
+  color: var(--wp--preset--color--texte);
   border-left: 4px solid var(--notiz-kante);
   padding: var(--wp--preset--spacing--50);
   font-family: var(--sans);
@@ -860,7 +870,7 @@ figcaption {
     font-weight: var(--sans-weight-strong);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--wp--preset--color--contrast);
+    color: var(--wp--preset--color--texte);
     background: transparent;
     border: 0;
     padding: 0.5rem 0;
@@ -969,6 +979,7 @@ figcaption {
     --wp--preset--color--surface: #fff;
     --wp--preset--color--pierre: #fff;
     --wp--preset--color--contrast: #000;
+    --wp--preset--color--texte: #000;
     --wp--preset--color--titre: #000;
     --wp--preset--color--muted: #333;
     --wp--preset--color--line: #999;
