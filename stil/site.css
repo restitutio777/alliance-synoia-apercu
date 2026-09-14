@@ -47,7 +47,12 @@
      brach die Wortmarke um und die Navigation klebte an ihr.
 
      Nicht zentrieren. Zentrierter Lesetext neben linksbündigen Rastern
-     erzeugt genau den Versatz, den diese Regel verhindert. */
+     erzeugt genau den Versatz, den diese Regel verhindert.
+
+     Ab 1200 px füllt eine Randspalte rechts die Luft (.avec-marge):
+     Inhaltsverzeichnis, Download. Der Lesetext bleibt bei 45rem, weil
+     längere Zeilen schlechter lesbar sind; die Fläche wird mit Inhalt
+     gefüllt, nicht mit Zeilenlänge. */
   --wp--style--global--content-size: 45rem;
   --wp--style--global--wide-size: 70rem;
 
@@ -300,7 +305,7 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .hero__image img, .bandeau img, .adhesion figure img {
   object-position: var(--ausschnitt, center);
 }
-img[src$="riviere.jpg"] { --ausschnitt: 50% 45%; }
+img[src$="torrent.jpg"] { --ausschnitt: 50% 34%; }
 .hero__image img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
 
 /* Rahmen um das Hero-Bild: eine Haarlinie in Gold direkt an der Kante,
@@ -330,6 +335,13 @@ figcaption {
    das Erste, was man sieht, und das Erste, was schief aussieht. */
 .page-tete { padding-block: var(--wp--preset--spacing--60) var(--wp--preset--spacing--40); }
 .page-tete > * { max-width: var(--wp--style--global--content-size); }
+/* Titel und Vorspann dürfen breiter laufen als der Lesetext: der Titel
+   ist kurz, der Vorspann steht größer und verträgt eine längere Zeile. */
+.page-tete > h1 { max-width: none; }
+.page-tete > .chapeau { max-width: 52rem; }
+@media (min-width: 75rem) {
+  .page-tete > .chapeau { font-size: calc(var(--body-size) * 1.3); max-width: 56rem; }
+}
 .page-tete > p:last-child { margin-bottom: 0; }
 .page-tete .label { margin-bottom: var(--wp--preset--spacing--30); }
 .page-tete .chapeau { margin-top: var(--wp--preset--spacing--40); }
@@ -341,10 +353,10 @@ figcaption {
 
 /* Concept und Alliance sind lange Texte — 630 und 1470 Wörter, und kein
    Wort davon dürfen wir kürzen. Was gegen die Länge hilft, ist nicht
-   engerer Satz, sondern die Möglichkeit, gezielt hinzuspringen. Deshalb
-   hier eine Liste statt eines mitlaufenden Verzeichnisses am Rand: sie
-   funktioniert ohne JavaScript, sie steht auch im PDF, und sie überlebt
-   den Umzug nach WordPress als gewöhnlicher Block. */
+   engerer Satz, sondern die Möglichkeit, gezielt hinzuspringen. Auf dem
+   Desktop steht die Liste in der Randspalte neben dem ersten Abschnitt,
+   darunter über dem Text. Ohne JavaScript, im WordPress-Umzug ein
+   gewöhnlicher Block. */
 .sommaire {
   padding-block: 0 var(--wp--preset--spacing--50);
 }
@@ -377,6 +389,33 @@ figcaption {
   color: var(--wp--preset--color--gold);
 }
 .sommaire a:hover { color: var(--wp--preset--color--accent); }
+/* ---------- Randspalte ---------- */
+
+/* Unter 1200 px steht die Randspalte einfach im Fluss. Darüber rückt sie
+   rechts neben den Lesetext und läuft mit, solange ihr Abschnitt sichtbar
+   ist. Sie klebt nur innerhalb ihres Abschnitts: über die ganze Seite
+   würde sie über Bildbänder und Raster fahren. */
+.avec-marge > .sommaire { padding-bottom: var(--wp--preset--spacing--50); }
+.avec-marge > .telecharger__bloc { margin-top: var(--wp--preset--spacing--60); }
+@media (min-width: 75rem) {
+  .avec-marge {
+    display: grid;
+    grid-template-columns: minmax(0, var(--wp--style--global--content-size)) minmax(0, 1fr);
+    column-gap: var(--wp--preset--spacing--60);
+    align-items: start;
+  }
+  .avec-marge > * { grid-column: 1; }
+  .avec-marge > .marge {
+    grid-column: 2;
+    grid-row: 1 / span 30;
+    position: sticky;
+    top: var(--wp--preset--spacing--50);
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+  .avec-marge > .marge > * { max-width: none; }
+}
+
 /* Ein Sprungziel darf nicht unter dem Kopf der Seite landen. */
 :target { scroll-margin-top: var(--wp--preset--spacing--50); }
 
@@ -675,17 +714,32 @@ figcaption {
 
 /* ---------- Hinweis, provisorisch ---------- */
 
+/* Arbeitsnotizen für Frédéric. Sie sollen auffallen und als vorläufig
+   erkennbar sein, deshalb bewusst außerhalb der Farbwelt der Seite: gelb
+   wie ein Notizzettel, gestrichelter Rand. Volle Breite, gut lesbare
+   Größe; ab 1000 px in zwei Spalten, damit die Zeile nicht zu lang wird.
+   Alle Notizen werden vor dem Livegang entfernt (ANLEITUNG.md). */
 .avis {
-  border-left: 2px solid var(--wp--preset--color--gold);
-  background: var(--wp--preset--color--surface);
-  padding: var(--wp--preset--spacing--40);
+  --notiz-grund: #FBEFB5;
+  --notiz-kante: #C99A00;
+  --notiz-text: #2B2410;
+  background: var(--notiz-grund);
+  color: var(--notiz-text);
+  border: 2px dashed var(--notiz-kante);
+  border-left: 8px solid var(--notiz-kante);
+  padding: var(--wp--preset--spacing--50);
   font-family: var(--sans);
-  font-size: var(--wp--preset--font-size--small);
+  font-size: calc(var(--body-size) * 0.86);
   line-height: 1.6;
-  max-width: var(--wp--style--global--content-size);
+  max-width: none;
 }
 .avis p:last-child { margin-bottom: 0; }
-.avis .label { margin-bottom: 0.5rem; }
+.avis .label { margin-bottom: 0.75rem; color: #5E4700; font-weight: 600; column-span: all; }
+.avis a { color: inherit; }
+@media (min-width: 62.5rem) {
+  .avis { column-width: 24rem; column-gap: var(--wp--preset--spacing--60); }
+  .avis p { break-inside: avoid; }
+}
 
 /* ---------- Fuß ---------- */
 
