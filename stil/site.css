@@ -271,9 +271,6 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 }
 .nav a:hover, .nav a[aria-current="page"] { background-size: 100% 1px; }
 
-/* Der Knopf im Kopf ist enger gesetzt als die Knöpfe im Text: hier zählt
-   jeder Pixel, sonst drängt er die Navigation gegen die Wortmarke. */
-.site-header__cta { flex: 0 0 auto; font-size: 1rem; padding: 0.9em 1.25em; letter-spacing: 0.05em; }
 
 .nav-bascule { display: none; }
 
@@ -733,10 +730,6 @@ figcaption {
 .site-footer nav a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
 
 /* ---------- Schmale Bildschirme ---------- */
-
-@media (max-width: 1100px) {
-  .site-header__cta { display: none; }
-}
 
 @media (max-width: 900px) {
   /* Die Umschaltung greift nur, wenn JavaScript lief (Klasse js am <html>).
