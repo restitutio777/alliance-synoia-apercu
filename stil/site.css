@@ -25,16 +25,16 @@
   --wp--preset--color--muted: #5A6070;       /* Nebentext */
   --wp--preset--color--line: #D9D0BF;        /* Trennlinien */
   --wp--preset--color--accent: #24386E;      /* Blau des Wappens, abgedunkelt: Verweise und Knöpfe */
-  /* Das Blau des Wappens, wie es dort wirklich steht (aus der Bilddatei
-     gemessen: #0030A8). Es gehört der Identität, nicht der Bedienung —
-     verwendet für das griechische Wort, nicht für Verweise und Knöpfe.
-     Die stehen weiter im abgedunkelten Ton, sonst konkurrieren zwei
-     gleich laute Blau auf derselben Seite. */
-  --wp--preset--color--blason: #0F3AA8;
+  /* Das Blau der Identität: heller als --accent, damit es dem Wappen
+     nahe steht, aber deutlich entsättigt. Das gemessene Wappenblau
+     (#0030A8) direkt zu nehmen war ein Fehlgriff — in dieser Größe wirkt
+     ein voll gesättigtes Blau grell und billig, nicht edel. Verwendet
+     für das griechische Wort, nicht für Verweise und Knöpfe. */
+  --wp--preset--color--blason: #35507F;
   --wp--preset--color--accent-dark: #1A2A55;
   --wp--preset--color--gold: #A8873F;        /* Gold des Wappens, sparsam */
   --wp--preset--color--gold-clair: #C9AE76;  /* dasselbe Gold, aufgehellt: nur für Haarlinien */
-  --onde: rgba(168, 135, 63, 0.17);          /* Gold, fast unsichtbar: die Resonanzringe */
+  --onde: rgba(168, 135, 63, 0.22);          /* Gold, fast unsichtbar: die Resonanzringe */
   --wp--preset--color--feld: #FFFDF9;        /* Formularfelder */
 
   --wp--preset--font-size--small: 1.0625rem;
@@ -459,11 +459,15 @@ figcaption {
    Deckung, eine Maske, die die Ringe zum Rand hin auflöst, und kein
    einziges Pixel Bilddatei. Wer die Deckung erhöht, macht daraus Dekor.
 
-   Die Ringe sind golden, nicht blau. Blau auf der hellen Fläche wurde
-   grau und sah aus wie ein technischer Plan; Gold gehört zur Haarlinie
-   darunter und zum Wappen. Sie sitzen enger und kleiner als früher und
-   sind auf das Wort zentriert, nicht auf den Abschnitt — sonst schnitt
-   der obere Rand des Bandes einen Ring sichtbar an. */
+   Zwei Lagen, mehr nicht: Licht und drei Ringe.
+
+   Das Licht liegt unten und ist in der Mitte am hellsten, so als fiele
+   etwas auf die Fläche. Es trägt das Wort, ohne es einzurahmen.
+
+   Darüber drei Ringe, weit auseinander und golden. Ein enges Ringmuster
+   war der Fehlgriff davor: gleichmäßige Kreise über die ganze Fläche
+   sehen aus wie eine Zielscheibe, nicht wie Resonanz. Drei Ringe sind
+   eine Geste, zehn sind ein Muster. */
 .etymologie {
   position: relative;
   isolation: isolate;
@@ -478,13 +482,18 @@ figcaption {
   z-index: -1;
   left: 50%;
   top: 47%;
-  width: min(105vw, 960px);
+  width: min(125vw, 1150px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  background: repeating-radial-gradient(circle at center,
-    transparent 0 44px, var(--onde) 44px 45.5px);
-  -webkit-mask-image: radial-gradient(circle at center, #000 6%, rgba(0,0,0,0.45) 38%, transparent 68%);
-          mask-image: radial-gradient(circle at center, #000 6%, rgba(0,0,0,0.45) 38%, transparent 68%);
+  background:
+    repeating-radial-gradient(circle at center,
+      transparent 0 148px, var(--onde) 148px 149px),
+    radial-gradient(circle at center,
+      rgba(255, 253, 246, 0.95) 0%,
+      rgba(255, 253, 246, 0.55) 28%,
+      rgba(255, 253, 246, 0) 62%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 34%, rgba(0,0,0,0.55) 54%, transparent 74%);
+          mask-image: radial-gradient(circle at center, #000 34%, rgba(0,0,0,0.55) 54%, transparent 74%);
   pointer-events: none;
 }
 .etymologie__inner { display: grid; justify-items: center; gap: var(--wp--preset--spacing--50); }
