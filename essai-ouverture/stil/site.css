@@ -193,9 +193,9 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .section { padding-block: var(--wp--preset--spacing--70); }
 .section--serre { padding-block: var(--wp--preset--spacing--60); }
 .section--surface { background: var(--wp--preset--color--surface); }
-/* Pierre trägt die Abschnitte, die für sich stehen: die Etymologie und
-   der Beitrittsblock am Seitenende. Dadurch wird die Seite nach unten
-   hin eine Spur tiefer und läuft nicht abrupt in den dunklen Fuß. */
+/* Pierre trägt den Beitrittsblock am Seitenende und die beiden
+   Formularseiten. Dadurch wird die Seite nach unten hin eine Spur tiefer
+   und läuft nicht abrupt in den dunklen Fuß. */
 .section--pierre { background: var(--wp--preset--color--pierre); }
 
 /* Zwischenüberschriften beginnen an der Seitenkante wie alles andere.
@@ -459,83 +459,64 @@ figcaption {
 
 /* ---------- Etymologie ---------- */
 
-/* Hinter dem griechischen Wort liegen konzentrische Ringe, sehr blass.
-   Das ist keine Zierde, sondern sein eigenes Bild: der Concept-Text nennt
-   die Synosphäre „une trame vibratoire" und spricht von Resonanz; συνοΐα
-   heißt die verbindende Bewusstheit. Ringe auf Wasser sind das
-   nächstliegende Bild dafür und zugleich das zurückhaltendste — Geometrie,
-   kein Symbol, keine Illustration.
+/* Eine Atempause, keine Sektion. Zwischen zwei Textstrecken steht ein
+   einziges Wort, das der Verein sich selbst gegeben hat, und die Seite
+   hält kurz an.
 
-   Drei Regeln halten es dezent: eine einzige Farbe bei sehr geringer
-   Deckung, eine Maske, die die Ringe zum Rand hin auflöst, und kein
-   einziges Pixel Bilddatei. Wer die Deckung erhöht, macht daraus Dekor.
+   Drei Anläufe liegen dahinter, alle verworfen: ein bildschirmhohes Band
+   mit Lichtkreis und Ringen, dann dasselbe kompakter, dann flach
+   gedrückte Ringe hinter dem Wort. Der gemeinsame Fehler war, die Würde
+   des Wortes aus einer Grafik holen zu wollen. In einem gut gesetzten
+   Buch macht das die Typografie: Größe, Weißraum, eine Haarlinie. Mehr
+   ist hier nicht, und weniger ginge auch nicht.
 
-   Zwei Lagen, mehr nicht: Licht und drei Ringe.
+   Kein Farbfeld. Die graue Fläche (Pierre) hat das Wort nicht gehoben,
+   sondern eingesperrt — eine Kachel im Lesefluss, dazu kühl auf warmem
+   Papier. Die Pause entsteht jetzt durch Abstand: das Band hat mehr Luft
+   als jeder andere Abschnitt und trotzdem weniger Höhe als vorher.
 
-   Das Licht liegt unten und ist in der Mitte am hellsten, so als fiele
-   etwas auf die Fläche. Es trägt das Wort, ohne es einzurahmen.
-
-   Darüber drei Ringe, weit auseinander und golden. Ein enges Ringmuster
-   war der Fehlgriff davor: gleichmäßige Kreise über die ganze Fläche
-   sehen aus wie eine Zielscheibe, nicht wie Resonanz. Drei Ringe sind
-   eine Geste, zehn sind ein Muster. */
+   Kein Blau. Das Wort steht in derselben Tinte wie die Überschriften,
+   nur größer und weiter gesperrt — wie ein griechisches Zitat im Buch
+   gesetzt würde. Das Wappenblau bleibt dafür den Verweisen und Knöpfen,
+   die Goldlinie bleibt das einzige Farbsignal. */
 .etymologie {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--wp--preset--color--pierre);
-  /* Das Band war fast bildschirmhoch und wirkte dadurch wie eine eigene
-     Seite. Es soll ein Atemzug sein, kein Kapitel. */
-  padding-block: clamp(3.5rem, 2.6rem + 3.2vw, 6rem);
-  text-align: center;
+  padding-block: clamp(3.5rem, 2.4rem + 4vw, 6.5rem);
 }
-.etymologie::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  top: 47%;
-  /* Schmaler als das Band: Licht und Ringe sollen im Satzspiegel
-     liegen und nicht bis an die Fensterkanten laufen. */
-  width: min(82vw, 780px);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  background:
-    repeating-radial-gradient(circle at center,
-      transparent 0 118px, var(--onde) 118px 119px),
-    radial-gradient(circle at center,
-      rgba(255, 253, 246, 0.95) 0%,
-      rgba(255, 253, 246, 0.55) 28%,
-      rgba(255, 253, 246, 0) 62%);
-  -webkit-mask-image: radial-gradient(circle at center, #000 34%, rgba(0,0,0,0.55) 54%, transparent 74%);
-          mask-image: radial-gradient(circle at center, #000 34%, rgba(0,0,0,0.55) 54%, transparent 74%);
-  pointer-events: none;
+.etymologie__inner {
+  display: grid;
+  justify-items: start;
+  text-align: left;
+  gap: var(--wp--preset--spacing--40);
 }
-.etymologie__inner { display: grid; justify-items: center; gap: var(--wp--preset--spacing--50); }
-/* Die Beschriftung steht weiter oben und weiter auseinander als sonst:
-   sie kündigt an, sie erklärt nicht. */
-.etymologie .label { letter-spacing: 0.22em; }
+/* Die Beschriftung kündigt an, sie erklärt nicht: weiter gesperrt als
+   sonst und im Gold, damit sie zur Haarlinie darunter gehört. */
+.etymologie .label {
+  letter-spacing: 0.24em;
+  color: var(--wp--preset--color--gold);
+}
 .grec {
   font-family: var(--serif);
   font-weight: var(--head-weight);
-  font-size: clamp(4rem, 2rem + 7vw, 8.5rem);
+  /* Vorher bis 8,5rem. In dieser Größe war das Wort nicht feierlich,
+     sondern laut, und es zwang die Seite in ein eigenes Kapitel. */
+  font-size: clamp(3rem, 1.9rem + 4.6vw, 5.25rem);
   line-height: 1;
-  /* Griechische Minuskeln stehen von Haus aus enger als lateinische
-     Versalien. Eine Spur mehr Weite lässt das Wort atmen, ohne es
-     auseinanderzuziehen. */
-  letter-spacing: 0.02em;
-  color: var(--wp--preset--color--blason);
+  /* Griechische Minuskeln stehen von Haus aus eng. Gesperrt bekommen sie
+     etwas Inschriftliches, und das Wort liest sich langsamer — was an
+     dieser Stelle genau der Zweck ist. */
+  letter-spacing: 0.06em;
+  color: var(--wp--preset--color--titre);
   margin: 0;
 }
-/* Die Übersetzung tritt zurück, aber sie verschwindet nicht: eine Stufe
-   kleiner und schmaler als der Fließtext, in voller Tinte. Mit
-   Nebentextfarbe wurde das ganze Band blass. */
+.etymologie .filet { width: 3.5rem; }
+/* Die Herleitung tritt zurück, aber sie verschwindet nicht: eine Stufe
+   kleiner als der Fließtext, in voller Tinte. Mit Nebentextfarbe wurde
+   die ganze Stelle blass. */
 .etymologie__texte {
-  font-size: calc(var(--body-size) * 1.02);
-  max-width: 30em;
+  font-size: calc(var(--body-size) * 0.95);
+  max-width: 34em;
   margin: 0;
 }
-.etymologie .filet { width: 4.5rem; }
 
 /* ---------- Prinzipien ---------- */
 
@@ -1173,8 +1154,7 @@ figcaption {
 
   html, body { background: #fff; color: #000; background-image: none; }
 
-  /* Ringe, Licht und Bewegung sind Bildschirmsache. */
-  .etymologie::before { display: none; }
+  /* Bewegung ist Bildschirmsache. */
   .section__tete, .citation, .bandeau figure, .hero__image,
   .etymologie__inner, .principe, .carte, .vocation, .telecharger__bloc {
     animation: none !important;
