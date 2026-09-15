@@ -832,6 +832,37 @@ figcaption {
 }
 .formulaire__note { font-family: var(--sans); font-size: 1rem; line-height: 1.5; color: var(--wp--preset--color--muted); margin: 0; }
 
+/* ---------- Was noch fehlt ---------- */
+
+/* Eine Seite, auf der Angaben fehlen, hat zwei Möglichkeiten: die Stelle
+   leer lassen oder die Lücke benennen. Leer lassen sieht nach Fehler aus
+   — und schlimmer, es sieht nach *fertig* aus, wenn niemand hinschaut.
+
+   Also benennt die Seite die Lücke. Jede fehlende Angabe steht als
+   kleines Feld im Text: gedämpfte Schrift auf einem Hauch Gold, mit
+   gepunkteter Linie darunter. Man liest sofort, dass dort etwas hingehört
+   und dass es noch nicht da ist. Damit ist das Layout vollständig, bevor
+   die Inhalte es sind, und keine erfundene Adresse steht auf einer Seite,
+   die öffentlich erreichbar ist.
+
+   Im Druck bleibt es lesbar, aber ohne Fläche: Papier kennt kein Gold,
+   und ein grauer Kasten im Ausdruck sieht aus wie ein Druckfehler. */
+.a-completer {
+  font-family: var(--sans);
+  font-size: 0.92em;
+  font-weight: var(--sans-weight);
+  letter-spacing: 0.02em;
+  color: var(--wp--preset--color--muted);
+  background: rgba(168, 135, 63, 0.10);
+  border-bottom: 1px dotted var(--wp--preset--color--gold);
+  border-radius: 2px;
+  padding: 0.05em 0.4em;
+}
+/* In der Faktenliste ist jede Zelle eine Rasterspalte: ohne das zöge sich
+   der Platzhalter über die ganze Breite und sähe aus wie ein leeres
+   Eingabefeld. Er ist eine Notiz, keine Aufforderung. */
+.faits .a-completer { justify-self: start; }
+
 /* ---------- Zum Herunterladen ---------- */
 
 .telecharger__bloc {
@@ -1223,6 +1254,10 @@ figcaption {
     opacity: 1 !important;
     transform: none !important;
   }
+
+  /* Der Platzhalter bleibt lesbar, aber ohne Fläche: ein grauer Kasten
+     im Ausdruck sieht aus wie ein Druckfehler. */
+  .a-completer { background: none; border-bottom: 1px dotted #999; color: #333; }
 
   /* Alles, was auf Papier nichts verloren hat. */
   .site-header, .site-footer, .saut, .actions, .formulaire,
