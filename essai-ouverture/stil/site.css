@@ -615,14 +615,18 @@ figcaption {
    halbe Schräge wächst die Höhe mit, denn im Mittel nimmt der Zuschnitt
    oben genau so viel weg; sonst wirkt das Band schmaler als vorher.
 
-   Das Maß wächst **schneller als das Fenster**: der Abzug von 0,75rem
-   lässt auf dem Telefon nur den Mindestwert von 8 px übrig, auf 1440 px
-   sind es 31 px. Ein über alle Breiten gleicher Winkel war falsch — das
-   Band ist auf dem Telefon nur halb so hoch, dieselbe Neigung frisst
-   dort den doppelten Anteil seiner Fläche und sieht billig aus. Jetzt
-   trägt das Telefon eine Andeutung (5 % der Bandhöhe), der große Schirm
-   die Geste (10 %). */
-.bandeau { --pente: clamp(0.5rem, 3vw - 0.75rem, 3rem); }
+   Das Maß **beginnt erst bei 800 px** und wächst dann schneller als das
+   Fenster: 0 auf dem Telefon und dem kleinen Tablet, 29 px auf 1440 px,
+   höchstens 48 px. Zwei Anläufe waren nötig. Ein über alle Breiten
+   gleicher Winkel war falsch, weil das Band auf dem Telefon nur halb so
+   hoch ist — dieselbe Neigung frisst dort den doppelten Anteil seiner
+   Fläche. Aber auch eine bloß kleinere Neigung blieb falsch: der Keil,
+   den sie oben links frei legt, ist auf dem schmalen Schirm breiter als
+   das Band hoch ist, und ein heller Streifen über einem Bild sieht nach
+   Fehler aus, nicht nach Absicht. Die Schräge braucht eine Fläche, die
+   sie tragen kann. Unter 800 px steht das Band deshalb rechtwinklig —
+   dort trägt die Öffnung beim Hereinscrollen die Bewegung allein. */
+.bandeau { --pente: clamp(0px, 4.5vw - 2.25rem, 3rem); }
 .bandeau img { width: 100%; height: calc(clamp(10rem, 22vw, 22rem) + var(--pente) / 2); object-fit: cover; }
 .bandeau figcaption { margin-top: 0.5rem; }
 .bandeau .wrap { padding-top: 0.2rem; }
@@ -996,10 +1000,10 @@ figcaption {
    flachen Parabel; eine Gerade sähe an dieser Stelle nach Schablone aus,
    eine Ellipse nach Bühne.
 
-   Das Maß `--pente` steht oben bei der Höhe des Bandes: 8 px auf dem
-   Telefon, 31 px auf 1440 px, am unteren Rand nichts. Die Standlinie der
-   Seite bleibt unberührt — und genau darum darf die Kante oben überhaupt
-   so frei sein.
+   Das Maß `--pente` steht oben bei der Höhe des Bandes: unter 800 px
+   null, auf 1440 px 29 px, am unteren Rand immer nichts. Die Standlinie
+   der Seite bleibt unberührt — und genau darum darf die Kante oben
+   überhaupt so frei sein.
 
    Ein Zuschnitt, keine Animation: er steht auch dort, wo der Browser
    scrollgebundene Animationen nicht kennt. Im Druck sind Bildbänder
@@ -1029,26 +1033,15 @@ figcaption {
    aus. Er läuft deshalb auch in Firefox und auf älteren Telefonen, wo
    der Rest still steht — und er ist auf dem kleinen Schirm genauso zu
    sehen wie auf dem großen, wo die übrigen Griffe leiser wirken. Wer
-   Bewegung abbestellt hat, sieht das Bild sofort und vollständig. */
+   Bewegung abbestellt hat, sieht das Bild sofort und vollständig.
+
+   Ein Versuch, die Öffnung auf dem Telefon stattdessen an die Lage des
+   Bildes zu hängen, ist verworfen: am Scrollrad hängt die Bewegung an
+   der Hand statt am Blick, läuft mit der Scrollgeschwindigkeit ab und
+   wirkt mechanisch. Eine Begrüßung hat ihr eigenes Tempo. */
 @media screen and (prefers-reduced-motion: no-preference) {
   .hero__image {
     animation: ouvrir-hero 1500ms cubic-bezier(0.22, 0.61, 0.36, 1) 150ms both;
-  }
-}
-
-/* Auf dem Telefon steht das Bild unter dem Vorspann, nicht daneben: beim
-   Laden sieht man höchstens seinen oberen Rand, und wer hinunterscrollt,
-   fände es längst offen vor. Wo der Browser es kann, hängt die Öffnung
-   dort deshalb am Bild selbst statt an der Uhr — dieselbe Bewegung,
-   ausgelöst vom Blick statt vom Aufruf. Kennt er es nicht, bleibt es bei
-   der Öffnung beim Laden. */
-@media screen and (max-width: 900px) and (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .hero__image {
-      animation: ouvrir-hero linear both;
-      animation-timeline: view();
-      animation-range: entry 5% entry 85%;
-    }
   }
 }
 
@@ -1127,8 +1120,11 @@ figcaption {
   from { transform: translateY(-5%) scale(1.12); }
   to   { transform: translateY(5%) scale(1.12); }
 }
+/* 6 % statt 10 %: der Rückzug lief auf dem Telefon, wo der Hero schnell
+   oben hinausgeht, sichtbar mit dem Daumen mit. Weniger Weg auf derselben
+   Strecke heißt weniger Tempo. */
 @keyframes recul {
-  from { transform: scale(1.1); }
+  from { transform: scale(1.06); }
   to   { transform: scale(1); }
 }
 @keyframes ouvrir-hero {
