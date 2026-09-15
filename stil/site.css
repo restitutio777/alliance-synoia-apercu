@@ -700,6 +700,13 @@ figcaption {
   align-items: start;
 }
 .adhesion h2 { margin: var(--wp--preset--spacing--30) 0 var(--wp--preset--spacing--40); }
+/* Auf Contact steht links nur die kurze Liste der beiden Vereine — solange
+   Anschrift und Mailadresse fehlen, bleibt darunter eine große leere
+   Fläche neben einem hohen Formular. Die schmalere Spalte nimmt ihr die
+   Hälfte. Kommen die Angaben, kann das Verhältnis zurück auf 5/6. */
+@media (min-width: 900.02px) {
+  .page-contact .adhesion { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
+}
 .montant { display: flex; align-items: baseline; gap: 1rem; margin: 0 0 var(--wp--preset--spacing--40); }
 .montant__chiffre {
   font-family: var(--serif);
@@ -707,7 +714,10 @@ figcaption {
   font-size: calc(var(--wp--preset--font-size--xx-large) * 1.2);
   line-height: 1;
   font-variant-numeric: lining-nums;
-  color: var(--wp--preset--color--accent);
+  /* Im Knopfblau sah die 17 aus wie ein Preisschild. Im Gold ist sie
+     dieselbe Ziffer wie die der drei Berufungen: eine Zahl, die zählt,
+     nicht eine, die kassiert. */
+  color: var(--wp--preset--color--gold);
 }
 .montant__unite {
   font-family: var(--sans);
@@ -725,14 +735,42 @@ figcaption {
 
 /* ---------- Formular ---------- */
 
+/* Auf diesen beiden Seiten wird der Leser tätig: er schreibt uns oder er
+   tritt bei. Das ist kein Vorgang, das ist eine Entscheidung. Vorher stand
+   dafür ein weißer Kasten mit grauem Rahmen auf kühlem Grau — ein Antrag,
+   kein Willkommen. Drei Dinge ändern das, alle aus der vorhandenen Palette:
+
+   Der Grund ist **Sable** statt Pierre. Pierre ist die kühlste helle
+   Fläche der Seite; auf einer Seite, die um Zugehörigkeit bittet, war
+   genau das falsch.
+
+   Die Karte trägt oben eine **Goldkante**, 3 px. Dasselbe Gold wie die
+   Haarlinien, nur einmal breit: es macht aus dem Kasten ein Blatt, das
+   jemand hingelegt hat. Ihr Rand ist warmes Beige statt Grau.
+
+   Die Felder sind **Papierfelder**: heller als die Karte, warm umrandet,
+   mit sichtbarem Fokus im Wappenblau. Ein Feld, das auf Berührung
+   antwortet, fühlt sich an wie ein Gegenüber; eines, das nichts tut, wie
+   ein Formular auf dem Amt. */
+
 .formulaire {
   display: grid;
-  gap: 1.25rem;
-  padding: var(--wp--preset--spacing--50);
+  gap: 1.35rem;
+  padding: var(--wp--preset--spacing--50) var(--wp--preset--spacing--50) var(--wp--preset--spacing--50);
   background: var(--wp--preset--color--base);
   border: 1px solid var(--wp--preset--color--line);
+  border-top: 3px solid var(--wp--preset--color--gold);
 }
-.section--surface .formulaire { background: var(--wp--preset--color--base); }
+@media (min-width: 900.02px) {
+  .formulaire { padding: var(--wp--preset--spacing--60); }
+}
+/* Die Überschrift der Karte gehört zur Goldkante darüber: dasselbe Gold,
+   dieselbe weite Sperrung wie bei der Etymologie. */
+.formulaire > .label {
+  color: var(--wp--preset--color--gold);
+  letter-spacing: 0.22em;
+  margin-bottom: 0.25rem;
+}
 .formulaire label {
   display: grid;
   gap: 0.45rem;
@@ -741,7 +779,10 @@ figcaption {
   font-weight: var(--sans-weight-strong);
   letter-spacing: 0.02em;
 }
-.champs-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.champs-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.35rem; }
+@media (max-width: 480px) {
+  .champs-2 { grid-template-columns: minmax(0, 1fr); }
+}
 .formulaire input[type="text"],
 .formulaire input[type="email"],
 .formulaire textarea,
@@ -753,9 +794,25 @@ figcaption {
   letter-spacing: 0;
   color: var(--wp--preset--color--texte);
   background: var(--wp--preset--color--feld);
-  border: 1px solid #857E70;
-  border-radius: 2px;
-  padding: 0.75rem 0.85rem;
+  /* #857E70 war ein neutrales Grau und damit der kälteste Strich auf der
+     ganzen Seite. Dieser Ton ist dieselbe Helligkeit, nur warm. */
+  border: 1px solid #BFB29A;
+  border-radius: 3px;
+  padding: 0.8rem 0.9rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.formulaire input:hover,
+.formulaire textarea:hover,
+.formulaire select:hover { border-color: #9C8E74; }
+/* Der Fokus ist hier eigens gesetzt, weil der allgemeine Umriss der Seite
+   (outline mit Abstand) an einem Feld wie ein zweiter Rahmen aussieht.
+   Stattdessen färbt sich der Rand und bekommt einen weichen Hof. */
+.formulaire input:focus-visible,
+.formulaire textarea:focus-visible,
+.formulaire select:focus-visible {
+  outline: none;
+  border-color: var(--wp--preset--color--accent);
+  box-shadow: 0 0 0 3px rgba(53, 80, 127, 0.2);
 }
 .formulaire textarea { min-height: 9rem; resize: vertical; line-height: 1.5; }
 .formulaire .case {
@@ -767,7 +824,12 @@ figcaption {
   color: var(--wp--preset--color--muted);
 }
 .case input { width: 1.1rem; height: 1.1rem; margin: 0.1rem 0 0; accent-color: var(--wp--preset--color--accent); }
-.formulaire .bouton { justify-self: start; }
+/* Der Knopf steht auf dem Telefon über die ganze Breite: mit dem Daumen
+   trifft man eine Fläche, keinen Punkt. */
+.formulaire .bouton { justify-self: stretch; margin-top: 0.25rem; }
+@media (min-width: 600.02px) {
+  .formulaire .bouton { justify-self: start; }
+}
 .formulaire__note { font-family: var(--sans); font-size: 1rem; line-height: 1.5; color: var(--wp--preset--color--muted); margin: 0; }
 
 /* ---------- Zum Herunterladen ---------- */
