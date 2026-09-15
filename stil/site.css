@@ -850,6 +850,19 @@ figcaption {
 }
 .formulaire__note { font-family: var(--sans); font-size: 1rem; line-height: 1.5; color: var(--wp--preset--color--muted); margin: 0; }
 
+/* Der Honigtopf. Nicht display:none und nicht hidden: manche Skripte
+   überspringen, was offensichtlich versteckt ist. Aus dem Sichtfeld
+   geschoben fällt er ihnen nicht auf, und für Bildschirmleser ist er über
+   aria-hidden und tabindex="-1" im Markup erledigt. */
+.leurre {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: 0;
+}
+
 /* ---------- Was noch fehlt ---------- */
 
 /* Eine Seite, auf der Angaben fehlen, hat zwei Möglichkeiten: die Stelle

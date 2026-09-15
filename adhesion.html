@@ -92,6 +92,15 @@
 
       <form class="formulaire" action="#" method="post">
         <p class="label">Demande d’adhésion</p>
+        <input type="hidden" name="formulaire" value="adhesion">
+        <!-- Zeitstempel für die Spamabwehr. Er wird von skript/site.js
+             gesetzt; ohne JavaScript bleibt er leer und die Prüfung
+             entfällt, statt den Besucher auszusperren. -->
+        <input type="hidden" name="jeton" value="">
+        <!-- Honigtopf: ein Feld, das kein Mensch sieht und kein Mensch
+             ausfüllt. Wer es ausfüllt, ist ein Skript. Kein CAPTCHA —
+             das sperrt Menschen aus, die schlecht sehen. -->
+        <p class="leurre" aria-hidden="true"><label>Ne pas remplir ce champ <input type="text" name="site" tabindex="-1" autocomplete="off"></label></p>
         <div class="champs-2">
           <label>Prénom <input type="text" name="prenom" autocomplete="given-name" required></label>
           <label>Nom <input type="text" name="nom" autocomplete="family-name" required></label>
