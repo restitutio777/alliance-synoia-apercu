@@ -700,12 +700,30 @@ figcaption {
   align-items: start;
 }
 .adhesion h2 { margin: var(--wp--preset--spacing--30) 0 var(--wp--preset--spacing--40); }
-/* Auf Contact steht links nur die kurze Liste der beiden Vereine — solange
-   Anschrift und Mailadresse fehlen, bleibt darunter eine große leere
-   Fläche neben einem hohen Formular. Die schmalere Spalte nimmt ihr die
-   Hälfte. Kommen die Angaben, kann das Verhältnis zurück auf 5/6. */
+/* Auf Contact schließt ein Bild die linke Spalte ab. Es stand vorher als
+   Band über die volle Breite zwischen Vorspann und Formular — und damit
+   genau im Weg: wer schreiben will, musste erst daran vorbei. Ein Bild vor
+   einem Formular ist eine Schranke, kein Empfang. In der Spalte steht es
+   neben dem Formular statt davor, füllt die Fläche, die die noch fehlenden
+   Kontaktangaben frei lassen, und hält den Weg zum Schreibfeld frei. */
+.illustration { margin: 0; }
+.illustration img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+/* Im Markup steht die Figur **hinter** dem Formular. Auf dem Telefon, wo
+   alles untereinander läuft, ist das die richtige Reihenfolge: erst
+   schreiben können, dann das Bild. Auf dem Desktop holt das Raster sie in
+   die linke Spalte unter die Angaben — dort füllt sie die Fläche, die die
+   noch fehlenden Kontaktdaten frei lassen, und steht neben dem Formular
+   statt davor. */
 @media (min-width: 900.02px) {
-  .page-contact .adhesion { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
+  .page-contact .adhesion {
+    grid-template-areas:
+      "texte formulaire"
+      "image formulaire";
+    align-content: start;
+  }
+  .page-contact .adhesion__texte { grid-area: texte; }
+  .page-contact .formulaire { grid-area: formulaire; }
+  .page-contact .illustration { grid-area: image; align-self: start; }
 }
 .montant { display: flex; align-items: baseline; gap: 1rem; margin: 0 0 var(--wp--preset--spacing--40); }
 .montant__chiffre {
