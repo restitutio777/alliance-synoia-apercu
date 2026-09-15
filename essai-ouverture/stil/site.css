@@ -610,7 +610,12 @@ figcaption {
 
 /* ---------- Bildband ---------- */
 
-.bandeau img { width: 100%; height: clamp(10rem, 22vw, 22rem); object-fit: cover; }
+/* Das Band steht schräg — der Zuschnitt und seine Begründung stehen unten
+   im Abschnitt „Bilder öffnen sich". Um den Betrag der Schräge wächst die
+   Höhe mit: sonst nimmt der Zuschnitt oben und unten je einen Zwickel weg
+   und das Band wirkt schmaler als vorher. */
+.bandeau { --pente: clamp(0.9rem, 2.6vw, 3rem); }
+.bandeau img { width: 100%; height: calc(clamp(10rem, 22vw, 22rem) + var(--pente)); object-fit: cover; }
 .bandeau figcaption { margin-top: 0.5rem; }
 .bandeau .wrap { padding-top: 0.2rem; }
 
@@ -962,19 +967,70 @@ figcaption {
    die Bilder. Das Bildband kommt so breit wie der Satzspiegel an der
    einen linken Kante herein und öffnet sich bis an die Fensterränder,
    während es zur Mitte wandert; das Motiv darin gleitet etwas langsamer
-   als die Seite. Das Hero-Motiv tritt eine Spur zurück, während es oben
-   aus dem Bildschirm geht. Kleinere Bilder öffnen sich von ihrer linken
-   Kante aus.
+   als die Seite. Das Hero-Bild öffnet sich beim Laden und tritt eine Spur
+   zurück, während es oben aus dem Bildschirm geht. Kleinere Bilder öffnen
+   sich von ihrer linken Kante aus.
 
    Bezug in seinen Texten: « une expansion de conscience » (Startseite),
    « en décloisonnant les disciplines » (Alliance). Das Bild bleibt nicht
    im Kasten der Textspalte.
 
-   Alle Bereiche hängen an der Lage des Bildes selbst (view-timeline),
-   nie an der Scrollstrecke der Seite: auf dem Telefon steht das
-   Hero-Bild unter dem Vorspann und wäre sonst schon verändert, bevor
-   man es sieht. Wo der Browser das nicht kennt, stehen die Bilder still
-   da wie vorher. */
+   Alle scrollgebundenen Bereiche hängen an der Lage des Bildes selbst
+   (view-timeline), nie an der Scrollstrecke der Seite: auf dem Telefon
+   steht das Hero-Bild unter dem Vorspann und wäre sonst schon verändert,
+   bevor man es sieht. Wo der Browser das nicht kennt, stehen die Bilder
+   still da wie vorher. */
+
+/* Das Bildband steht schräg. Die Kante steigt nach rechts an, um genau
+   einen Winkel: 2,6 % der Fensterbreite auf die ganze Breite, gut
+   anderthalb Grad. Das Maß hängt an der Breite, nicht an der Höhe des
+   Bandes — dadurch ist der Winkel auf dem Telefon derselbe wie auf dem
+   Schirm, und die Schräge bleibt eine Neigung statt einer Ecke. Mehr
+   wäre eine Geste aus dem Werbebaukasten, weniger sähe nach einem
+   Fehler im Zuschnitt aus. Die beiden Zwickel, die frei werden, zeigen
+   das Papier: das Band liegt auf der Seite, es ist nicht in sie
+   eingelassen. Ein Zuschnitt, keine Animation — er steht auch dort, wo
+   der Browser scrollgebundene Animationen nicht kennt. Im Druck sind
+   Bildbänder ohnehin ausgeblendet. */
+@media screen {
+  .bandeau figure {
+    clip-path: polygon(0 var(--pente), 100% 0, 100% calc(100% - var(--pente)), 0 100%);
+  }
+}
+
+/* Der erste Blick. Das Hero-Bild stand bisher einfach da; jetzt öffnet
+   es sich beim Laden — von der linken Kante her, derselben, an der der
+   Titel daneben beginnt, und zugleich eine Spur nach oben und unten wie
+   eine Blende. Eineinhalb Sekunden, ausklingend, danach nie wieder: eine
+   Begrüßung, keine Schleife.
+
+   Als einziger Effekt der Seite kommt er ohne scrollgebundene Animation
+   aus. Er läuft deshalb auch in Firefox und auf älteren Telefonen, wo
+   der Rest still steht — und er ist auf dem kleinen Schirm genauso zu
+   sehen wie auf dem großen, wo die übrigen Griffe leiser wirken. Wer
+   Bewegung abbestellt hat, sieht das Bild sofort und vollständig. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .hero__image {
+    animation: ouvrir-hero 1500ms cubic-bezier(0.22, 0.61, 0.36, 1) 150ms both;
+  }
+}
+
+/* Auf dem Telefon steht das Bild unter dem Vorspann, nicht daneben: beim
+   Laden sieht man höchstens seinen oberen Rand, und wer hinunterscrollt,
+   fände es längst offen vor. Wo der Browser es kann, hängt die Öffnung
+   dort deshalb am Bild selbst statt an der Uhr — dieselbe Bewegung,
+   ausgelöst vom Blick statt vom Aufruf. Kennt er es nicht, bleibt es bei
+   der Öffnung beim Laden. */
+@media screen and (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .hero__image {
+      animation: ouvrir-hero linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 85%;
+    }
+  }
+}
+
 @media screen and (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
 
@@ -1012,9 +1068,24 @@ figcaption {
     }
   }
 }
+/* Dieselbe Schräge von Anfang bis Ende, nur die seitliche Kante wandert:
+   beide Stützpunkte sind Vierecke mit denselben vier Ecken, sonst
+   rechnet der Browser den Übergang nicht aus. */
 @keyframes ouvrir-bande {
-  from { clip-path: inset(0 var(--satzrand)); }
-  to   { clip-path: inset(0 0); }
+  from {
+    clip-path: polygon(
+      var(--satzrand) var(--pente),
+      calc(100% - var(--satzrand)) 0,
+      calc(100% - var(--satzrand)) calc(100% - var(--pente)),
+      var(--satzrand) 100%);
+  }
+  to {
+    clip-path: polygon(
+      0 var(--pente),
+      100% 0,
+      100% calc(100% - var(--pente)),
+      0 100%);
+  }
 }
 /* Das Motiv ist 12 % größer als sein Rahmen und wandert darin um
    ±5 %: genug für Tiefe, zu wenig, um es als Bewegung zu verfolgen. */
@@ -1025,6 +1096,10 @@ figcaption {
 @keyframes recul {
   from { transform: scale(1.1); }
   to   { transform: scale(1); }
+}
+@keyframes ouvrir-hero {
+  from { clip-path: inset(9% 100% 9% 0); }
+  to   { clip-path: inset(0 0 0 0); }
 }
 @keyframes ouvrir-image {
   from { clip-path: inset(0 24% 0 0); }
