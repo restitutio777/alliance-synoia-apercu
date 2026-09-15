@@ -193,9 +193,9 @@ h4 { font-size: calc(var(--body-size) * 1.05); font-weight: 600; letter-spacing:
 .section { padding-block: var(--wp--preset--spacing--70); }
 .section--serre { padding-block: var(--wp--preset--spacing--60); }
 .section--surface { background: var(--wp--preset--color--surface); }
-/* Pierre trägt die Abschnitte, die für sich stehen: die Etymologie und
-   der Beitrittsblock am Seitenende. Dadurch wird die Seite nach unten
-   hin eine Spur tiefer und läuft nicht abrupt in den dunklen Fuß. */
+/* Pierre trägt den Beitrittsblock am Seitenende und die beiden
+   Formularseiten. Dadurch wird die Seite nach unten hin eine Spur tiefer
+   und läuft nicht abrupt in den dunklen Fuß. */
 .section--pierre { background: var(--wp--preset--color--pierre); }
 
 /* Zwischenüberschriften beginnen an der Seitenkante wie alles andere.
@@ -459,83 +459,64 @@ figcaption {
 
 /* ---------- Etymologie ---------- */
 
-/* Hinter dem griechischen Wort liegen konzentrische Ringe, sehr blass.
-   Das ist keine Zierde, sondern sein eigenes Bild: der Concept-Text nennt
-   die Synosphäre „une trame vibratoire" und spricht von Resonanz; συνοΐα
-   heißt die verbindende Bewusstheit. Ringe auf Wasser sind das
-   nächstliegende Bild dafür und zugleich das zurückhaltendste — Geometrie,
-   kein Symbol, keine Illustration.
+/* Eine Atempause, keine Sektion. Zwischen zwei Textstrecken steht ein
+   einziges Wort, das der Verein sich selbst gegeben hat, und die Seite
+   hält kurz an.
 
-   Drei Regeln halten es dezent: eine einzige Farbe bei sehr geringer
-   Deckung, eine Maske, die die Ringe zum Rand hin auflöst, und kein
-   einziges Pixel Bilddatei. Wer die Deckung erhöht, macht daraus Dekor.
+   Drei Anläufe liegen dahinter, alle verworfen: ein bildschirmhohes Band
+   mit Lichtkreis und Ringen, dann dasselbe kompakter, dann flach
+   gedrückte Ringe hinter dem Wort. Der gemeinsame Fehler war, die Würde
+   des Wortes aus einer Grafik holen zu wollen. In einem gut gesetzten
+   Buch macht das die Typografie: Größe, Weißraum, eine Haarlinie. Mehr
+   ist hier nicht, und weniger ginge auch nicht.
 
-   Zwei Lagen, mehr nicht: Licht und drei Ringe.
+   Kein Farbfeld. Die graue Fläche (Pierre) hat das Wort nicht gehoben,
+   sondern eingesperrt — eine Kachel im Lesefluss, dazu kühl auf warmem
+   Papier. Die Pause entsteht jetzt durch Abstand: das Band hat mehr Luft
+   als jeder andere Abschnitt und trotzdem weniger Höhe als vorher.
 
-   Das Licht liegt unten und ist in der Mitte am hellsten, so als fiele
-   etwas auf die Fläche. Es trägt das Wort, ohne es einzurahmen.
-
-   Darüber drei Ringe, weit auseinander und golden. Ein enges Ringmuster
-   war der Fehlgriff davor: gleichmäßige Kreise über die ganze Fläche
-   sehen aus wie eine Zielscheibe, nicht wie Resonanz. Drei Ringe sind
-   eine Geste, zehn sind ein Muster. */
+   Kein Blau. Das Wort steht in derselben Tinte wie die Überschriften,
+   nur größer und weiter gesperrt — wie ein griechisches Zitat im Buch
+   gesetzt würde. Das Wappenblau bleibt dafür den Verweisen und Knöpfen,
+   die Goldlinie bleibt das einzige Farbsignal. */
 .etymologie {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--wp--preset--color--pierre);
-  /* Das Band war fast bildschirmhoch und wirkte dadurch wie eine eigene
-     Seite. Es soll ein Atemzug sein, kein Kapitel. */
-  padding-block: clamp(3.5rem, 2.6rem + 3.2vw, 6rem);
-  text-align: center;
+  padding-block: clamp(3.5rem, 2.4rem + 4vw, 6.5rem);
 }
-.etymologie::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  top: 47%;
-  /* Schmaler als das Band: Licht und Ringe sollen im Satzspiegel
-     liegen und nicht bis an die Fensterkanten laufen. */
-  width: min(82vw, 780px);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  background:
-    repeating-radial-gradient(circle at center,
-      transparent 0 118px, var(--onde) 118px 119px),
-    radial-gradient(circle at center,
-      rgba(255, 253, 246, 0.95) 0%,
-      rgba(255, 253, 246, 0.55) 28%,
-      rgba(255, 253, 246, 0) 62%);
-  -webkit-mask-image: radial-gradient(circle at center, #000 34%, rgba(0,0,0,0.55) 54%, transparent 74%);
-          mask-image: radial-gradient(circle at center, #000 34%, rgba(0,0,0,0.55) 54%, transparent 74%);
-  pointer-events: none;
+.etymologie__inner {
+  display: grid;
+  justify-items: start;
+  text-align: left;
+  gap: var(--wp--preset--spacing--40);
 }
-.etymologie__inner { display: grid; justify-items: center; gap: var(--wp--preset--spacing--50); }
-/* Die Beschriftung steht weiter oben und weiter auseinander als sonst:
-   sie kündigt an, sie erklärt nicht. */
-.etymologie .label { letter-spacing: 0.22em; }
+/* Die Beschriftung kündigt an, sie erklärt nicht: weiter gesperrt als
+   sonst und im Gold, damit sie zur Haarlinie darunter gehört. */
+.etymologie .label {
+  letter-spacing: 0.24em;
+  color: var(--wp--preset--color--gold);
+}
 .grec {
   font-family: var(--serif);
   font-weight: var(--head-weight);
-  font-size: clamp(4rem, 2rem + 7vw, 8.5rem);
+  /* Vorher bis 8,5rem. In dieser Größe war das Wort nicht feierlich,
+     sondern laut, und es zwang die Seite in ein eigenes Kapitel. */
+  font-size: clamp(3rem, 1.9rem + 4.6vw, 5.25rem);
   line-height: 1;
-  /* Griechische Minuskeln stehen von Haus aus enger als lateinische
-     Versalien. Eine Spur mehr Weite lässt das Wort atmen, ohne es
-     auseinanderzuziehen. */
-  letter-spacing: 0.02em;
-  color: var(--wp--preset--color--blason);
+  /* Griechische Minuskeln stehen von Haus aus eng. Gesperrt bekommen sie
+     etwas Inschriftliches, und das Wort liest sich langsamer — was an
+     dieser Stelle genau der Zweck ist. */
+  letter-spacing: 0.06em;
+  color: var(--wp--preset--color--titre);
   margin: 0;
 }
-/* Die Übersetzung tritt zurück, aber sie verschwindet nicht: eine Stufe
-   kleiner und schmaler als der Fließtext, in voller Tinte. Mit
-   Nebentextfarbe wurde das ganze Band blass. */
+.etymologie .filet { width: 3.5rem; }
+/* Die Herleitung tritt zurück, aber sie verschwindet nicht: eine Stufe
+   kleiner als der Fließtext, in voller Tinte. Mit Nebentextfarbe wurde
+   die ganze Stelle blass. */
 .etymologie__texte {
-  font-size: calc(var(--body-size) * 1.02);
-  max-width: 30em;
+  font-size: calc(var(--body-size) * 0.95);
+  max-width: 34em;
   margin: 0;
 }
-.etymologie .filet { width: 4.5rem; }
 
 /* ---------- Prinzipien ---------- */
 
@@ -610,7 +591,24 @@ figcaption {
 
 /* ---------- Bildband ---------- */
 
-.bandeau img { width: 100%; height: clamp(10rem, 22vw, 22rem); object-fit: cover; }
+/* Die Oberkante des Bandes fällt leicht nach links ab — der Zuschnitt und
+   seine Begründung stehen unten im Abschnitt „Bilder öffnen sich". Um die
+   halbe Schräge wächst die Höhe mit, denn im Mittel nimmt der Zuschnitt
+   oben genau so viel weg; sonst wirkt das Band schmaler als vorher.
+
+   Das Maß **beginnt erst bei 800 px** und wächst dann schneller als das
+   Fenster: 0 auf dem Telefon und dem kleinen Tablet, 29 px auf 1440 px,
+   höchstens 48 px. Zwei Anläufe waren nötig. Ein über alle Breiten
+   gleicher Winkel war falsch, weil das Band auf dem Telefon nur halb so
+   hoch ist — dieselbe Neigung frisst dort den doppelten Anteil seiner
+   Fläche. Aber auch eine bloß kleinere Neigung blieb falsch: der Keil,
+   den sie oben links frei legt, ist auf dem schmalen Schirm breiter als
+   das Band hoch ist, und ein heller Streifen über einem Bild sieht nach
+   Fehler aus, nicht nach Absicht. Die Schräge braucht eine Fläche, die
+   sie tragen kann. Unter 800 px steht das Band deshalb rechtwinklig —
+   dort trägt die Öffnung beim Hereinscrollen die Bewegung allein. */
+.bandeau { --pente: clamp(0px, 4.5vw - 2.25rem, 3rem); }
+.bandeau img { width: 100%; height: calc(clamp(10rem, 22vw, 22rem) + var(--pente) / 2); object-fit: cover; }
 .bandeau figcaption { margin-top: 0.5rem; }
 .bandeau .wrap { padding-top: 0.2rem; }
 
@@ -933,14 +931,13 @@ figcaption {
    sofort da. Deshalb die @supports-Klammer: ohne sie bliebe der Inhalt
    dort unsichtbar.
 
-   Nur Überschriften, Zitate, Bilder und Rasterzellen. Nie Fließtext:
-   Text, der beim Lesen noch wandert, ist eine Zumutung. */
+   Nur Überschriften, Zitate und Rasterzellen. Nie Fließtext:
+   Text, der beim Lesen noch wandert, ist eine Zumutung. Die Bilder
+   tauchen nicht auf, sie öffnen sich (nächster Abschnitt). */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .section__tete,
     .citation,
-    .bandeau figure,
-    .hero__image,
     .etymologie__inner,
     .principe,
     .carte,
@@ -955,6 +952,169 @@ figcaption {
 @keyframes paraitre {
   from { opacity: 0.2; transform: translateY(14px); }
   to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Bilder öffnen sich ---------- */
+
+/* Teil des dritten Griffs, kein vierter: statt aufzutauchen öffnen sich
+   die Bilder. Das Bildband kommt so breit wie der Satzspiegel an der
+   einen linken Kante herein und öffnet sich bis an die Fensterränder,
+   während es zur Mitte wandert; das Motiv darin gleitet etwas langsamer
+   als die Seite. Das Hero-Bild öffnet sich beim Laden und tritt eine Spur
+   zurück, während es oben aus dem Bildschirm geht. Kleinere Bilder öffnen
+   sich von ihrer linken Kante aus.
+
+   Bezug in seinen Texten: « une expansion de conscience » (Startseite),
+   « en décloisonnant les disciplines » (Alliance). Das Bild bleibt nicht
+   im Kasten der Textspalte.
+
+   Alle scrollgebundenen Bereiche hängen an der Lage des Bildes selbst
+   (view-timeline), nie an der Scrollstrecke der Seite: auf dem Telefon
+   steht das Hero-Bild unter dem Vorspann und wäre sonst schon verändert,
+   bevor man es sieht. Wo der Browser das nicht kennt, stehen die Bilder
+   still da wie vorher. */
+
+/* Die Oberkante des Bildbands fällt nach links ab, die Unterkante bleibt
+   gerade. Das Band kippt also nicht, es steht — nur sein oberer Rand ist
+   nicht mit dem Lineal gezogen, sondern sinkt nach links weg, anfangs
+   kaum, dann stärker. Die Kurve besteht aus sieben Stützpunkten einer
+   flachen Parabel; eine Gerade sähe an dieser Stelle nach Schablone aus,
+   eine Ellipse nach Bühne.
+
+   Das Maß `--pente` steht oben bei der Höhe des Bandes: unter 800 px
+   null, auf 1440 px 29 px, am unteren Rand immer nichts. Die Standlinie
+   der Seite bleibt unberührt — und genau darum darf die Kante oben
+   überhaupt so frei sein.
+
+   Ein Zuschnitt, keine Animation: er steht auch dort, wo der Browser
+   scrollgebundene Animationen nicht kennt. Im Druck sind Bildbänder
+   ohnehin ausgeblendet. */
+@media screen {
+  .bandeau figure {
+    clip-path: polygon(
+      0 var(--pente),
+      18% calc(var(--pente) * 0.80),
+      36% calc(var(--pente) * 0.58),
+      54% calc(var(--pente) * 0.36),
+      72% calc(var(--pente) * 0.18),
+      88% calc(var(--pente) * 0.06),
+      100% 0,
+      100% 100%,
+      0 100%);
+  }
+}
+
+/* Der erste Blick. Das Hero-Bild stand bisher einfach da; jetzt öffnet
+   es sich beim Laden — von der linken Kante her, derselben, an der der
+   Titel daneben beginnt, und zugleich eine Spur nach oben und unten wie
+   eine Blende. Eineinhalb Sekunden, ausklingend, danach nie wieder: eine
+   Begrüßung, keine Schleife.
+
+   Als einziger Effekt der Seite kommt er ohne scrollgebundene Animation
+   aus. Er läuft deshalb auch in Firefox und auf älteren Telefonen, wo
+   der Rest still steht — und er ist auf dem kleinen Schirm genauso zu
+   sehen wie auf dem großen, wo die übrigen Griffe leiser wirken. Wer
+   Bewegung abbestellt hat, sieht das Bild sofort und vollständig.
+
+   Ein Versuch, die Öffnung auf dem Telefon stattdessen an die Lage des
+   Bildes zu hängen, ist verworfen: am Scrollrad hängt die Bewegung an
+   der Hand statt am Blick, läuft mit der Scrollgeschwindigkeit ab und
+   wirkt mechanisch. Eine Begrüßung hat ihr eigenes Tempo. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .hero__image {
+    animation: ouvrir-hero 1500ms cubic-bezier(0.22, 0.61, 0.36, 1) 150ms both;
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+
+    /* Der Rand, um den das Band anfangs eingezogen ist, ist genau der
+       Abstand der Satzkante vom Fensterrand, derselbe Wert, den .wrap
+       herstellt. In WordPress kommt der Seitenrand aus theme.json. */
+    .bandeau figure {
+      --satzrand: calc(max(0px, (100% - var(--wp--style--global--wide-size)) / 2) + clamp(1rem, 4vw, 2.5rem));
+      overflow: hidden;
+      view-timeline: --bande block;
+      animation: ouvrir-bande linear both;
+      animation-timeline: --bande;
+      animation-range: entry 60% cover 50%;
+    }
+    .bandeau img {
+      animation: profondeur linear both;
+      animation-timeline: --bande;
+      animation-range: cover 0% cover 100%;
+    }
+
+    .hero__image {
+      overflow: hidden;
+      view-timeline: --hero block;
+    }
+    .hero__image img {
+      animation: recul linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 100%;
+    }
+
+    .adhesion figure img {
+      animation: ouvrir-image linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 45%;
+    }
+  }
+}
+/* Dieselbe Kante von Anfang bis Ende, nur die Seiten wandern nach außen:
+   beide Stützpunkte haben dieselben neun Ecken, sonst rechnet der Browser
+   den Übergang nicht aus. Die x-Werte der Anfangsstellung sind die der
+   Endstellung, zusammengeschoben auf die Breite zwischen den beiden
+   Satzkanten — `18 % + satzrand · 0,64` ist nichts anderes als
+   `satzrand + 0,18 · (100 % − 2 · satzrand)`, ausmultipliziert. */
+@keyframes ouvrir-bande {
+  from {
+    clip-path: polygon(
+      var(--satzrand) var(--pente),
+      calc(18% + var(--satzrand) * 0.64) calc(var(--pente) * 0.80),
+      calc(36% + var(--satzrand) * 0.28) calc(var(--pente) * 0.58),
+      calc(54% - var(--satzrand) * 0.08) calc(var(--pente) * 0.36),
+      calc(72% - var(--satzrand) * 0.44) calc(var(--pente) * 0.18),
+      calc(88% - var(--satzrand) * 0.76) calc(var(--pente) * 0.06),
+      calc(100% - var(--satzrand)) 0,
+      calc(100% - var(--satzrand)) 100%,
+      var(--satzrand) 100%);
+  }
+  to {
+    clip-path: polygon(
+      0 var(--pente),
+      18% calc(var(--pente) * 0.80),
+      36% calc(var(--pente) * 0.58),
+      54% calc(var(--pente) * 0.36),
+      72% calc(var(--pente) * 0.18),
+      88% calc(var(--pente) * 0.06),
+      100% 0,
+      100% 100%,
+      0 100%);
+  }
+}
+/* Das Motiv ist 12 % größer als sein Rahmen und wandert darin um
+   ±5 %: genug für Tiefe, zu wenig, um es als Bewegung zu verfolgen. */
+@keyframes profondeur {
+  from { transform: translateY(-5%) scale(1.12); }
+  to   { transform: translateY(5%) scale(1.12); }
+}
+/* 6 % statt 10 %: der Rückzug lief auf dem Telefon, wo der Hero schnell
+   oben hinausgeht, sichtbar mit dem Daumen mit. Weniger Weg auf derselben
+   Strecke heißt weniger Tempo. */
+@keyframes recul {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+@keyframes ouvrir-hero {
+  from { clip-path: inset(9% 100% 9% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes ouvrir-image {
+  from { clip-path: inset(0 24% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
 }
 
 .impression-pied { display: none; }
@@ -994,8 +1154,7 @@ figcaption {
 
   html, body { background: #fff; color: #000; background-image: none; }
 
-  /* Ringe, Licht und Bewegung sind Bildschirmsache. */
-  .etymologie::before { display: none; }
+  /* Bewegung ist Bildschirmsache. */
   .section__tete, .citation, .bandeau figure, .hero__image,
   .etymologie__inner, .principe, .carte, .vocation, .telecharger__bloc {
     animation: none !important;
